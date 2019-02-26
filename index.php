@@ -43,7 +43,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois');
             </div>
             <div class="col-md-2 mt-xl-3 mb-5">
               <div class="btn-group">
-                <a class="btn btn-success" href="#" role="button">Export</a>
+                <!-- <a class="btn btn-success" href="#" role="button">Export</a> -->
               </div>
               <div class="btn-group">
                 <a class="btn btn-primary" href="login.php" role="button">Logout</a>
@@ -63,23 +63,23 @@ $con = mysqli_connect('localhost', 'root', '', 'ois');
           <!-- date -->
           <div class="row">
             <div class="col-lg-4"></div>
+            <div class="col-lg-2">
+              <!-- <div class="form-group">
+                    <label for="startDate">Start Date</label>
+                    <input type="text" class="form-control" id="startDate" value="07/01/2015">
+              </div> -->
+            </div>
+            <div class="col-lg-2">
+              <!-- <div class="form-group">
+                <label for="endDate">End Date</label>
+                <input type="text" class="form-control" id="endDate" value="07/15/2015">
+              </div> -->
+            </div>
             <div class="col-lg-1">
               <a class="btn btn-break btn-circle btn-lg rounded-circle" href="#" role="button"><i class="fas fa-mug-hot"></i></a>
             </div>
             <div class="col-lg-1">
               <a class="btn btn-info btn-circle btn-lg rounded-circle" href="#" role="button"><i class="fas fa-utensils"></i></a>
-            </div>
-            <div class="col-lg-2">
-              <div class="form-group">
-                    <label for="startDate">Start Date</label>
-                    <input type="text" class="form-control" id="startDate" value="07/01/2015">
-              </div>
-            </div>
-            <div class="col-lg-2">
-              <div class="form-group">
-                <label for="endDate">End Date</label>
-                <input type="text" class="form-control" id="endDate" value="07/15/2015">
-              </div>
             </div>
             <div class="col-lg-2">
               <div class="input-group mb-3">
@@ -95,50 +95,57 @@ $con = mysqli_connect('localhost', 'root', '', 'ois');
     <!-- Main navigation -->
 
     <!-- table -->
-    <div class="table-responsive">
-  <table class="table">
+    
+  <table class="table table-striped table-bordered">
     <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">Heading</th>
-        <th scope="col">Heading</th>
-        <th scope="col">Heading</th>
-        <th scope="col">Heading</th>
-        <th scope="col">Heading</th>
-        <th scope="col">Heading</th>
-        <th scope="col">Heading</th>
-        <th scope="col">Heading</th>
-        <th scope="col">Heading</th>
+        <th scope="col" rowspan="2">Emp ID</th>
+        <th scope="col" rowspan="2">Employee name</th>
+        <th scope="col" rowspan="2">Login</th>
+        <th scope="col" colspan="2">Break</th>
+        <th scope="col" colspan="2">Lunch</th>
+        <th scope="col" colspan="2">Break</th>
+        <th scope="col" rowspan="2">Logout</th>
+        <th scope="col" rowspan="2">Total hrs</th>
+      </tr>
+      <tr>
+        <th scope="col">Out time</th>
+        <th scope="col">In time</th>
+        <th scope="col">Out time</th>
+        <th scope="col">In time</th>
+        <th scope="col">Out time</th>
+        <th scope="col">In time</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <th scope="row">1</th>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Cell123</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
-        <td>Cell</td>
+        <th scope="row">OIS00037</th>
+        <td>Ravi Kiran</td>
+        <td>11:30</td>
+        <td>12:15</td>
+        <td>12:30</td>
+        <td>01:40</td>
+        <td>02:15</td>
+        <td>04:20</td>
+        <td>04:35</td>
+        <td>06:40</td>
+        <td>07:00</td>
       </tr>
     </tbody>
   </table>
-</div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-9">
+    
+      </div>
+      <div class="col-lg-3"> 
+        <div class="btn-group">
+          <a class="btn btn-primary" href="timelist.php" role="button">check previous days</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
     <script>
       n =  new Date();
