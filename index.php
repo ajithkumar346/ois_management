@@ -124,7 +124,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois');
         <td>Cell</td>
         <td>Cell</td>
       </tr>
-      <!-- <tr>
+      <tr>
         <th scope="row">2</th>
         <td>Cell</td>
         <td>Cell</td>
@@ -135,11 +135,11 @@ $con = mysqli_connect('localhost', 'root', '', 'ois');
         <td>Cell</td>
         <td>Cell</td>
         <td>Cell</td>
-      </tr> -->
+      </tr>
     </tbody>
   </table>
 </div>
-    
+
     <script>
       n =  new Date();
       y = n.getFullYear();
@@ -151,7 +151,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois');
     <script src="js/date.js"></script>
 
     <!-- Optional JavaScript -->
-    
+
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script type="text/javascript" src="js/main.js"></script>
