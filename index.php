@@ -126,7 +126,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois');
       </tr>
       <tr>
         <th scope="row">2</th>
-        <td>Cell</td>
+        <td>Cell123</td>
         <td>Cell</td>
         <td>Cell</td>
         <td>Cell</td>
