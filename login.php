@@ -68,7 +68,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
                 </div>
                 <input type="Password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" style="max-width: 300px;">
               </div>
-              <a class="btn btn-primary" href="index.php">Login</a>
+              <a class="btn btn-primary"name="login_btn">Login</a>
               </form>
             </div>
           </div>
@@ -107,7 +107,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
   if (isset($_GET['logout'])) {
     session_destroy();
     unset($_SESSION['user']);
-   // header("location: login.php");
+   header("location: login.php");
   }
 // LOGIN USER
   function login(){
@@ -127,7 +127,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
 
     // attempt login if no errors on form
     if (count($errors) == 0) {
-      $password = md5($password);
+      $password = ($password);
 
       $query = "SELECT * FROM attendance WHERE username='$Employee_Name' AND password='$Password' LIMIT 1";
       $results = mysqli_query($db, $query);
@@ -139,28 +139,46 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
           $_SESSION['user'] = $logged_in_user;
           $_SESSION['success']  = "You are now logged in";
 
-          //header('location: login.php');
+          header('location: index.php');
       }else {
         array_push($errors, "Wrong username/password combination");
       }
     }
   }
-  ?>
-  <script type="text/javascript">
-    $(document).ready(function() {
-    $('#my_select').on('change', do_something);
-});
+  function isLoggedIn()
+  {
+    if (isset($_SESSION['user'])) {
+      return true;
+    }else{
+      return false;
+    }
+  }
 
-function do_something() {
-    var selected = $('#my_select').val();
-    $.ajax({
-        url:        '/login1.php',
-        type:       'POST',
-        dataType:   'json',
-        data:       { value: selected },
-        success:    function(data) {
-            $('#Employee2').PHP(data);
+  function isAdmin()
+  {
+    if (isset($_SESSION['user']) && $_SESSION['user']['user_type'] == 'admin' ) {
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  // escape string
+  function e($val){
+    global $db;
+    return mysqli_real_escape_string($db, trim($val));
+  }
+
+  function display_error() {
+    global $errors;
+
+    if (count($errors) > 0){
+      echo '<div class="error">';
+        foreach ($errors as $error){
+          echo $error .'<br>';
         }
-    });
-}
-  </script>
+      echo '</div>';
+    }
+  }
+  ?>
+  

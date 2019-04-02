@@ -1,3 +1,12 @@
+<?php 
+ // include('functions.php');
+
+
+  if (!isLoggedIn()) {
+    $_SESSION['msg'] = "You must log in first";
+    header('location: login.php');
+  }
+?>
 <?php
 $con = mysqli_connect('localhost', 'root', '', 'ois');
 
