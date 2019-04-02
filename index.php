@@ -8,7 +8,7 @@
   }
 ?>
 <?php
-$con = mysqli_connect('localhost', 'root', '', 'ois');
+$con = mysqli_connect('localhost', 'root', '', 'ois_management');
 
                            if (!$con)
                              {
@@ -104,7 +104,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois');
     <!-- Main navigation -->
 
     <!-- table -->
-    
+
   <table class="table table-striped table-bordered">
     <thead>
       <tr>
@@ -145,9 +145,9 @@ $con = mysqli_connect('localhost', 'root', '', 'ois');
   <div class="container">
     <div class="row">
       <div class="col-lg-9">
-    
+
       </div>
-      <div class="col-lg-3"> 
+      <div class="col-lg-3">
         <div class="btn-group">
           <a class="btn btn-primary" href="timelist.php" role="button">check previous days</a>
         </div>

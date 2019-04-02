@@ -39,9 +39,9 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
               <br><br><br>
               <h1 class="h1-responsive font-weight-bold mt-sm-5 txt-title">Employee LogIn </h1><br>
               <!-- DropDown -->
-              <form method="POST"> 
-              <div class="input-group mb-4 txt-box"> 
-                        
+              <form method="POST">
+              <div class="input-group mb-4 txt-box">
+
                 <?php
 
                 $query= "SELECT * FROM attendance";
@@ -69,6 +69,8 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
                 <input type="Password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" style="max-width: 300px;">
               </div>
               <a class="btn btn-primary"name="login_btn">Login</a>
+
+              <a class="btn btn-primary login_btn" href="index.php">Login</a>
               </form>
             </div>
           </div>
@@ -88,7 +90,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
   </body>
 </html>
 
-<?php 
+<?php
   session_start();
   // connect to database
   $db = mysqli_connect('localhost', 'root', '', 'ois_management');
@@ -96,7 +98,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
   // variable declaration
   $Employee_Name = "";
   $email    = "";
-  $errors   = array(); 
+  $errors   = array();
 
   // call the login() function if register_btn is clicked
   if (isset($_GET['login_btn'])) {
@@ -135,7 +137,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
       if (mysqli_num_rows($results) == 1) { // user found
         // check if user is admin or user
         $logged_in_user = mysqli_fetch_assoc($results);
-        
+
           $_SESSION['user'] = $logged_in_user;
           $_SESSION['success']  = "You are now logged in";
 
@@ -177,8 +179,11 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
         foreach ($errors as $error){
           echo $error .'<br>';
         }
+
       echo '</div>';
     }
   }
   ?>
+  
+
   
