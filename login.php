@@ -39,8 +39,8 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
               <br><br><br>
               <h1 class="h1-responsive font-weight-bold mt-sm-5 txt-title">Employee LogIn </h1><br>
               <!-- DropDown -->
-              <form method="POST">
-              <div class="input-group mb-4 txt-box">
+              <form action="functions.php">
+                <div class="input-group mb-4 txt-box">
 
                 <?php
 
@@ -49,28 +49,32 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
                  echo "
                  <div class=\"input-group-prepend\">
                   <span class=\"input-group-text\" id=\"basic-addon1\"><i class=\"fas fa-user\"></i></span>
-                </div>
-                  <select class=\"btn btn-secondary dropdown-toggle dropbtn\" name=\"Employee2\" id=\"my_select\">";
+                 </div>
+                  <select class=\"btn btn-secondary dropdown-toggle dropbtn\" name=\"Employee_Name\" id=\"my_select\">";
 
                   echo "<option class=\"dropdown-menu\">Select your name</option>";
                   while ($row = mysqli_fetch_array($result)) {
 
-                    echo "<option class=\"dropdownmen\" value='" . $row['Employee_Name'] . "'>" . $row['Employee_Name'] . "</option>";
+                    echo "<option class=\"dropdownmen Employee_Name\" name='" . $row['Employee_Name'] . "' value='" . $row['Employee_Name'] . "' >" . $row['Employee_Name'] . "</option>";
                     echo " <br>";
                   }
                      echo "</select>";
-                     ?>
-                </div>
-              <!-- Password -->
-              <div class="input-group mb-4 txt-box">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
-                </div>
-                <input type="Password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" style="max-width: 300px;">
-              </div>
-              <a class="btn btn-primary"name="login_btn">Login</a>
 
-              <a class="btn btn-primary login_btn" href="index.php">Login</a>
+                    ?> 
+                </div>
+              
+              <div class="input-group mb-4 txt-box">
+              <?php
+              echo "
+                <div class=\"input-group-prepend\">
+                  <span class=\"input-group-text\" id=\"basic-addon1\"><i class=\"fas fa-key\"></i></span>
+                </div>";
+                echo "<input type=\"Password\" class=\"form-control Password\" name=\"Password\" value='". $row['Password']."' placeholder=\"Password\" aria-label=\"Password\" aria-describedby=\"basic-addon1\" style=\"max-width: 300px;\">" ;
+                ?>
+              </div>
+              <!-- <a class="btn btn-primary" name="login_btn">Login</a> -->
+              <input type="submit" class="btn btn-primary login-btn" name="login_btn" value="Login">
+              <!-- <a class="btn btn-primary login_btn" href="index.php">Login</a> -->
               </form>
             </div>
           </div>
@@ -89,101 +93,6 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
     <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
-
-<?php
-  session_start();
-  // connect to database
-  $db = mysqli_connect('localhost', 'root', '', 'ois_management');
-
-  // variable declaration
-  $Employee_Name = "";
-  $email    = "";
-  $errors   = array();
-
-  // call the login() function if register_btn is clicked
-  if (isset($_GET['login_btn'])) {
-    login();
-
-  }
-//print_r($_GET);exit;
-  if (isset($_GET['logout'])) {
-    session_destroy();
-    unset($_SESSION['user']);
-   header("location: login.php");
-  }
-// LOGIN USER
-  function login(){
-    global $db, $Employee_Name, $errors;
-
-    // grap form values
-    $username = e($_GET['Employee_Name']);
-    $password = e($_GET['Password']);
-
-    // make sure form is filled properly
-    if (empty($username)) {
-      array_push($errors, "Username is required");
-    }
-    if (empty($password)) {
-      array_push($errors, "Password is required");
-    }
-
-    // attempt login if no errors on form
-    if (count($errors) == 0) {
-      $password = ($password);
-
-      $query = "SELECT * FROM attendance WHERE username='$Employee_Name' AND password='$Password' LIMIT 1";
-      $results = mysqli_query($db, $query);
-
-      if (mysqli_num_rows($results) == 1) { // user found
-        // check if user is admin or user
-        $logged_in_user = mysqli_fetch_assoc($results);
-
-          $_SESSION['user'] = $logged_in_user;
-          $_SESSION['success']  = "You are now logged in";
-
-          header('location: index.php');
-      }else {
-        array_push($errors, "Wrong username/password combination");
-      }
-    }
-  }
-  function isLoggedIn()
-  {
-    if (isset($_SESSION['user'])) {
-      return true;
-    }else{
-      return false;
-    }
-  }
-
-  function isAdmin()
-  {
-    if (isset($_SESSION['user']) && $_SESSION['user']['user_type'] == 'admin' ) {
-      return true;
-    }else{
-      return false;
-    }
-  }
-
-  // escape string
-  function e($val){
-    global $db;
-    return mysqli_real_escape_string($db, trim($val));
-  }
-
-  function display_error() {
-    global $errors;
-
-    if (count($errors) > 0){
-      echo '<div class="error">';
-        foreach ($errors as $error){
-          echo $error .'<br>';
-        }
-
-      echo '</div>';
-    }
-  }
-  ?>
   
 
   

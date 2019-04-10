@@ -1,18 +1,12 @@
-<?php 
- // include('functions.php');
-
-
-  if (!isLoggedIn()) {
-    $_SESSION['msg'] = "You must log in first";
-    header('location: login.php');
-  }
-?>
 <?php
+//include('functions.php');
+$Employee_Name1=$_GET['Employee_Name'];
+echo $Employee_Name1;
 $con = mysqli_connect('localhost', 'root', '', 'ois_management');
 
                            if (!$con)
                              {
-                             die('Could not connect: ' . mysql_error());
+                             die('Could not connect: ' . mysqli_error());
                              }
 
                        /*echo "Connections are made successfully::";*/
@@ -64,7 +58,8 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
                 <img class="rounded-circle" src="images/user.jpg" alt="username">
               </div>
               <div class="col-md-8 txt-emp">
-                <h3>Employee Name</h3>
+                <!-- <h3>Employee Name</h3> -->
+                <h3><?php echo $Employee_Name1; ?></h3>
                 <p>Designation</p>
               </div>
             </div>
@@ -127,19 +122,31 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">OIS00037</th>
-        <td>Ravi Kiran</td>
-        <td>11:30</td>
-        <td>12:15</td>
-        <td>12:30</td>
-        <td>01:40</td>
-        <td>02:15</td>
-        <td>04:20</td>
-        <td>04:35</td>
-        <td>06:40</td>
-        <td>07:00</td>
-      </tr>
+      <?php
+        $sql ="SELECT * from attendance where Employee_Name='$Employee_Name1'";
+        $result = mysqli_query($con, $sql);
+ echo "1234567";
+        if ($result ->num_rows > 0){
+         
+          while ($row = $result -> fetch_assoc()) {
+            
+            echo"<tr>
+              <td>".$row['Employee_Id']."</td>
+              <td>".$row['Employee_Name']."</td>
+              <td>".$row['Login_Time']."</td>
+              <td>12:15</td>
+              <td>12:30</td>
+              <td>01:40</td>
+              <td>02:15</td>
+              <td>04:20</td>
+              <td>04:35</td>
+              <td>".$row['Logout_Time']."</td>
+              <td>07:00</td>
+            </tr>";
+          }
+        }
+      ?>
+      
     </tbody>
   </table>
   <div class="container">
@@ -171,7 +178,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script type="text/javascript" src="js/main.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap.js"></script>
