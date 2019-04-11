@@ -40,7 +40,7 @@
     if (count($errors) == 0) {
       $password = ($password);
 
-      $query = "SELECT Employee_Name FROM attendance WHERE Employee_Name='$username' AND Password='$password' LIMIT 1";
+      $query = "SELECT * FROM attendance WHERE Employee_Name='$username' AND Password='$password' LIMIT 1";
       $results = mysqli_query($db, $query);
 
       if (mysqli_num_rows($results) == 1) { // user found
@@ -49,8 +49,11 @@
 
           $_SESSION['user'] = $logged_in_user;
           $_SESSION['success']  = "You are now logged in";
-
-          header('location: index.php?Employee_Name= '.$username.'');
+          $Employee_Id=$logged_in_user['Employee_Id'];
+        //  echo $test;
+          header('location: index.php?Employee_Id= '.$Employee_Id.'');
+        //  header('location: index.php?Employee_Name= '.$username.'');
+        //  echo "<script>setTimeout(\"location.href = 'index.php?Employee_Name= '.$username.'';\",1000);</script>";
       }else {
         /*array_push($errors, "Wrong username/password combination");*/
           echo '<script language="javascript">';

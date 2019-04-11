@@ -1,7 +1,10 @@
 <?php
+$db = mysqli_connect('localhost', 'root', '', 'ois_management');
+
 //include('functions.php');
-$Employee_Name1=$_GET['Employee_Name'];
-/*echo $Employee_Name1;*/
+//$Employee_Name1=$_GET['Employee_Id'];
+$Employee_Id=e($_GET['Employee_Id']);
+echo $Employee_Id;
 $con = mysqli_connect('localhost', 'root', '', 'ois_management');
 
                            if (!$con)
@@ -9,7 +12,14 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
                              die('Could not connect: ' . mysqli_error());
                              }
 
-                       /*echo "Connections are made successfully::";*/
+                       echo "Connections are made successfully::";
+                       $qry ="SELECT * from user_table where Employee_Id='$Employee_Id' LIMIT 1";
+                       $result = mysqli_query($con, $qry);
+  if (mysqli_num_rows($result) == 1) {
+                         $logged_in_user = mysqli_fetch_assoc($result);
+                         //$test=$logged_in_user['Employee_Name'];
+                        // echo $test;
+}
 ?>
 
 <!doctype html>
@@ -59,8 +69,11 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
               </div>
               <div class="col-md-8 txt-emp">
                 <!-- <h3>Employee Name</h3> -->
-                <h3><?php echo $Employee_Name1; ?></h3>
-                <p>Designation</p>
+
+
+
+                <h3><?php echo $logged_in_user['Employee_Name']; ?></h3>
+                <p><?php echo $logged_in_user['Designation'];?></p>
               </div>
             </div>
           </div>
@@ -123,30 +136,32 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
     </thead>
     <tbody>
       <?php
-        $sql ="SELECT * from attendance where Employee_Name='$Employee_Name1'";
-        $result = mysqli_query($con, $sql);
- echo "1234567";
-        if ($result ->num_rows > 0){
-         
-          while ($row = $result -> fetch_assoc()) {
-            
+      //  $sql1 ="SELECT * from user_table where Employee_Name='$Employee_Id' LIMIT 1";
+      //$result1 = mysqli_query($con, $sql1);
+
+ echo "1asd 234567";
+
+        if (mysqli_num_rows($result) > 0){
+echo "werrty";
+        //  while ($row = $result -> fetch_assoc()) {
+
             echo"<tr>
-              <td>".$row['Employee_Id']."</td>
-              <td>".$row['Employee_Name']."</td>
-              <td>".$row['Login_Time']."</td>
+              <td>".$logged_in_user['Employee_Id']."</td>
+              <td>".$logged_in_user['Employee_Name']."</td>
+              <td>".$logged_in_user['Login_Time']."</td>
               <td>12:15</td>
               <td>12:30</td>
               <td>01:40</td>
               <td>02:15</td>
               <td>04:20</td>
               <td>04:35</td>
-              <td>".$row['Logout_Time']."</td>
+              <td>".$logged_in_user['Logout_Time']."</td>
               <td>07:00</td>
             </tr>";
-          }
+          //}
         }
       ?>
-      
+
     </tbody>
   </table>
   <div class="container">
@@ -184,3 +199,9 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
     <script src="js/bootstrap.js"></script>
   </body>
 </html>
+<?php
+function e($val){
+  global $db;
+  return mysqli_real_escape_string($db, trim($val));
+}
+ ?>
