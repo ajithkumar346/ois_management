@@ -1,7 +1,7 @@
 <?php
 //include('functions.php');
 $Employee_Name1=$_GET['Employee_Name'];
-echo $Employee_Name1;
+/*echo $Employee_Name1;*/
 $con = mysqli_connect('localhost', 'root', '', 'ois_management');
 
                            if (!$con)

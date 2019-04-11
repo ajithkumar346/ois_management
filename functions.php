@@ -52,7 +52,11 @@
 
           header('location: index.php?Employee_Name= '.$username.'');
       }else {
-        array_push($errors, "Wrong username/password combination");
+        /*array_push($errors, "Wrong username/password combination");*/
+          echo '<script language="javascript">';
+          echo 'alert("Wrong Password")';
+          echo '</script>';
+          echo "<script>setTimeout(\"location.href = 'login.php';\",10);</script>";
       }
     }
   }
