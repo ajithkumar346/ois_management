@@ -4,7 +4,7 @@ $db = mysqli_connect('localhost', 'root', '', 'ois_management');
 //include('functions.php');
 //$Employee_Name1=$_GET['Employee_Id'];
 $Employee_Id=e($_GET['Employee_Id']);
-echo $Employee_Id;
+/*echo $Employee_Id;*/
 $con = mysqli_connect('localhost', 'root', '', 'ois_management');
 
                            if (!$con)
@@ -12,7 +12,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
                              die('Could not connect: ' . mysqli_error());
                              }
 
-                       echo "Connections are made successfully::";
+                       /*echo "Connections are made successfully::";*/
                        $qry ="SELECT * from user_table where Employee_Id='$Employee_Id' LIMIT 1";
                        $result = mysqli_query($con, $qry);
   if (mysqli_num_rows($result) == 1) {
@@ -51,12 +51,15 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
         <div class="container">
           <div class="row">
             <!--Grid column-->
-            <div class="col-md-10 white-text text-center text-md-left mt-xl-3 mb-5">
+            <div class="col-md-9 white-text text-center text-md-left mt-xl-3 mb-5">
               <img src="images/oislogo.png" alt="Logo">
             </div>
-            <div class="col-md-2 mt-xl-3 mb-5">
+            <div class="col-md-3 mt-xl-3 mb-5">
               <div class="btn-group">
                 <!-- <a class="btn btn-success" href="#" role="button">Export</a> -->
+              </div>
+              <div class="btn-group">
+                <a class="btn btn-primary" href="addemp.php" role="button">Add Employee</a>
               </div>
               <div class="btn-group">
                 <a class="btn btn-primary" href="login.php" role="button">Logout</a>
@@ -139,10 +142,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
       //  $sql1 ="SELECT * from user_table where Employee_Name='$Employee_Id' LIMIT 1";
       //$result1 = mysqli_query($con, $sql1);
 
- echo "1asd 234567";
-
         if (mysqli_num_rows($result) > 0){
-echo "werrty";
         //  while ($row = $result -> fetch_assoc()) {
 
             echo"<tr>
