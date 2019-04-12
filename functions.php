@@ -50,8 +50,15 @@
           $_SESSION['user'] = $logged_in_user;
           $_SESSION['success']  = "You are now logged in";
           $Employee_Id=$logged_in_user['Employee_Id'];
+          if ($username=='Santosh') {
+            // code...
+            header('location: addemp.php');
+          }else {
+            // code...
+
         //  echo $test;
           header('location: index.php?Employee_Id= '.$Employee_Id.'');
+          }
         //  header('location: index.php?Employee_Name= '.$username.'');
         //  echo "<script>setTimeout(\"location.href = 'index.php?Employee_Name= '.$username.'';\",1000);</script>";
       }else {
