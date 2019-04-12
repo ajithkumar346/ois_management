@@ -51,16 +51,16 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
         <div class="container">
           <div class="row">
             <!--Grid column-->
-            <div class="col-md-9 white-text text-center text-md-left mt-xl-3 mb-5">
+            <div class="col-md-10 white-text text-center text-md-left mt-xl-3 mb-5">
               <img src="images/oislogo.png" alt="Logo">
             </div>
-            <div class="col-md-3 mt-xl-3 mb-5">
+            <div class="col-md-2 mt-xl-2 mb-5">
               <div class="btn-group">
                 <!-- <a class="btn btn-success" href="#" role="button">Export</a> -->
               </div>
-              <div class="btn-group">
+              <!-- <div class="btn-group">
                 <a class="btn btn-primary" href="addemp.php" role="button">Add Employee</a>
-              </div>
+              </div> -->
               <div class="btn-group">
                 <a class="btn btn-primary" href="login.php" role="button">Logout</a>
               </div>
