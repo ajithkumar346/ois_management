@@ -59,13 +59,13 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
                 <!-- <a class="btn btn-success" href="#" role="button">Export</a> -->
               </div>
               <div class="btn-group">
-                <a class="btn btn-primary" href="addemp.php" role="button">Add Employee</a>
+                <a class="btn btn-primary" href="addemp.php?Employee_Id=<?php echo $Employee_Id ?>" role="button">Add Employee</a>
               </div>
               <div class="btn-group">
                 <a class="btn btn-warning " style="float:right;" href="#" role="button">Export</a>
               </div>
               <div class="btn-group">
-                <a class="btn btn-primary" href="login.php" role="button">Logout</a>
+                <a class="btn btn-primary" href="../login.php" role="button">Logout</a>
               </div>
             </div>
 
@@ -178,7 +178,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
 
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script type="text/javascript" src="js/main.js"></script>
+    <!-- <script type="text/javascript" src="js/main.js"></script> -->
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js"></script>
