@@ -51,11 +51,18 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
         <div class="container pb-5">
           <div class="row">
             <!--Grid column-->
-            <div class="col-md-10 white-text text-center text-md-left mt-xl-3 mb-5">
+            <div class="col-md-8 white-text text-center text-md-left mt-xl-3 mb-5">
               <img src="images/oislogo.png" alt="Logo">
             </div>
+
             <div class="col-md-2 mt-xl-2 mb-5">
 
+              <div class="btn-group">
+
+            <div class="col-md-4 mt-xl-2 mb-5">
+              <div class="btn-group">
+                <!-- <a class="btn btn-success" href="#" role="button">Export</a> -->
+              </div>
               <div class="btn-group">
                 <a class="btn btn-primary" href="addemp.php" role="button">Add Employee</a>
               </div>
@@ -69,7 +76,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
 
             <div class="row">
               <div class="col-md-4">
-                <img class="rounded-circle" src="images/user.jpg" alt="username">
+                <img class="rounded-circle" src="images/santosh.jpg" alt="username">
               </div>
               <div class="col-md-8 txt-emp">
                 <h3><?php echo $logged_in_user['Employee_Name']; ?></h3>
