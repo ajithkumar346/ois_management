@@ -71,7 +71,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
 
             <div class="row">
               <div class="col-md-4">
-                <img class="rounded-circle" src="images/user.jpg" alt="username">
+                <img class="rounded-circle" src="images/santosh.jpg" alt="username">
               </div>
               <div class="col-md-8 txt-emp">
                 <h3><?php echo $logged_in_user['Employee_Name']; ?></h3>
