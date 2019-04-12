@@ -55,17 +55,15 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
               <img src="images/oislogo.png" alt="Logo">
             </div>
             <div class="col-md-2 mt-xl-2 mb-5">
+
               <div class="btn-group">
-                <!-- <a class="btn btn-success" href="#" role="button">Export</a> -->
-              </div>
-              <!-- <div class="btn-group">
                 <a class="btn btn-primary" href="addemp.php" role="button">Add Employee</a>
-              </div> -->
+              </div>
               <div class="btn-group">
                 <a class="btn btn-warning " style="float:right;" href="#" role="button">Export</a>
               </div>
               <div class="btn-group">
-                <a class="btn btn-primary" href="login.php" role="button">Logout</a>
+                <a class="btn btn-primary" href="../login.php" role="button">Logout</a>
               </div>
             </div>
 
@@ -112,7 +110,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
     </div>
 
     <!-- table -->
-    
+
   <table class="table table-striped table-bordered">
     <thead>
       <tr>
@@ -153,9 +151,9 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
   <div class="container">
     <div class="row">
       <div class="col-lg-11">
-    
+
       </div>
-<!--       <div class="col-lg-1"> 
+<!--       <div class="col-lg-1">
         <div class="btn-group">
           <a class="btn btn-primary" href="index.php" role="button">Back</a>
         </div>

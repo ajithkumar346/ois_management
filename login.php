@@ -35,7 +35,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
             <!--Grid column-->
             <div class="col-md-12 white-text text-center text-md-left mt-xl-5 mb-5 wow fadeInLeft">
               <img src="images/oislogo.png" alt="Logo">
-              <a class="btn btn-warning " style="float:right;" href="#" role="button">Export</a>
+              <!--  <a class="btn btn-warning " style="float:right;" href="#" role="button">Export</a>-->
               <br><br><br>
               <h1 class="h1-responsive font-weight-bold mt-sm-5 txt-title">Employee LogIn </h1><br>
               <!-- DropDown -->
@@ -60,9 +60,9 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
                   }
                      echo "</select>";
 
-                    ?> 
+                    ?>
                 </div>
-              
+
               <div class="input-group mb-4 txt-box">
               <?php
               echo "
@@ -93,6 +93,3 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
     <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
-  
-
-  

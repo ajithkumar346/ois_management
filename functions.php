@@ -52,7 +52,7 @@
           $Employee_Id=$logged_in_user['Employee_Id'];
           if ($username=='Santosh') {
             // code...
-            header('location: addemp.php');
+            header('location: admin/index.php?Employee_Id= '.$Employee_Id.'');
           }else {
             // code...
 
