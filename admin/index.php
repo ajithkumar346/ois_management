@@ -54,6 +54,11 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
             <div class="col-md-8 white-text text-center text-md-left mt-xl-3 mb-5">
               <img src="images/oislogo.png" alt="Logo">
             </div>
+
+            <div class="col-md-2 mt-xl-2 mb-5">
+
+              <div class="btn-group">
+
             <div class="col-md-4 mt-xl-2 mb-5">
               <div class="btn-group">
                 <!-- <a class="btn btn-success" href="#" role="button">Export</a> -->
@@ -112,7 +117,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
     </div>
 
     <!-- table -->
-    
+
   <table class="table table-striped table-bordered">
     <thead>
       <tr>
@@ -153,9 +158,9 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
   <div class="container">
     <div class="row">
       <div class="col-lg-11">
-    
+
       </div>
-<!--       <div class="col-lg-1"> 
+<!--       <div class="col-lg-1">
         <div class="btn-group">
           <a class="btn btn-primary" href="index.php" role="button">Back</a>
         </div>

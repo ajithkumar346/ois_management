@@ -1,29 +1,34 @@
 <?php
-
+date_default_timezone_set('Asia/Kolkata');
   session_start();
   // connect to database
   $db = mysqli_connect('localhost', 'root', '', 'ois_management');
 
   // variable declaration
   $Employee_Name = "";
-  $email    = "";
+  $Login_Time    = "";
   $errors   = array();
-
+global $Login_Time;
   // call the login() function if register_btn is clicked
   if (isset($_GET['login_btn'])) {
-    login();
+    global $Login_Time;
 
+    login();
   }
-//print_r($_GET);exit;
+
   if (isset($_GET['logout'])) {
     session_destroy();
+    $Logout_Time= date("h:i:sa");
+    $query1 = "UPDATE user_table SET Logout_Time='$Logout_Time'  WHERE 1";
+    $results1 = mysqli_query($db, $query1);
     unset($_SESSION['user']);
    header("location: login.php");
   }
 // LOGIN USER
   function login(){
     global $db, $errors;
-
+    $Login_Time= date("h:i:sa");
+  //  echo $Login_Time;
     // grap form values
     $username = e($_GET['Employee_Name']);
     $password = e($_GET['Password']);
@@ -55,9 +60,12 @@
             header('location: admin/index.php?Employee_Id='.$Employee_Id.'');
           }else {
             // code...
+            echo $Login_Time;
+            $query1 = "UPDATE user_table SET Login_Time='$Login_Time'  WHERE 1";
+            $results1 = mysqli_query($db, $query1);
 
-        //  echo $test;
-          header('location: index.php?Employee_Id= '.$Employee_Id.'');
+         header('location: index.php?Employee_Id= '.$Employee_Id.'');
+        //  echo "<script>setTimeout(\"location.href = 'index.php?Employee_Id='.$Employee_Id.'';\",1000);</script>";
           }
         //  header('location: index.php?Employee_Name= '.$username.'');
         //  echo "<script>setTimeout(\"location.href = 'index.php?Employee_Name= '.$username.'';\",1000);</script>";

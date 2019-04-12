@@ -19,6 +19,9 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
                          $logged_in_user = mysqli_fetch_assoc($result);
                          //$test=$logged_in_user['Employee_Name'];
                         // echo $test;
+                      $Employee_Name=  $logged_in_user['Employee_Name'];
+                      $Designation=$logged_in_user['Designation'];
+
 }
 ?>
 
@@ -59,13 +62,10 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
             </div>
             <div class="col-md-2 mt-xl-2 mb-5">
               <div class="btn-group">
-                <!-- <a class="btn btn-success" href="#" role="button">Export</a> -->
+             <a class="btn btn-success" href="login.php" role="button">Home</a>
               </div>
-              <!-- <div class="btn-group">
-                <a class="btn btn-primary" href="addemp.php" role="button">Add Employee</a>
-              </div> -->
               <div class="btn-group">
-                <a class="btn btn-primary" href="login.php" role="button">Logout</a>
+                <a class="btn btn-primary" href="functions.php?logout=logout;" role="button">Logout</a>
               </div>
             </div>
 
@@ -78,8 +78,8 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
 
 
 
-                <h3><?php echo $logged_in_user['Employee_Name']; ?></h3>
-                <p><?php echo $logged_in_user['Designation'];?></p>
+                <h3><?php echo $Employee_Name; ?></h3>
+                <p><?php echo $Designation;?></p>
               </div>
             </div>
           </div>
