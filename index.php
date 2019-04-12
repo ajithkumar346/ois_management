@@ -19,6 +19,9 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
                          $logged_in_user = mysqli_fetch_assoc($result);
                          //$test=$logged_in_user['Employee_Name'];
                         // echo $test;
+                      $Employee_Name=  $logged_in_user['Employee_Name'];
+                      $Designation=$logged_in_user['Designation'];
+
 }
 ?>
 
@@ -56,13 +59,10 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
             </div>
             <div class="col-md-2 mt-xl-2 mb-5">
               <div class="btn-group">
-                <!-- <a class="btn btn-success" href="#" role="button">Export</a> -->
+             <a class="btn btn-success" href="login.php" role="button">Home</a>
               </div>
-              <!-- <div class="btn-group">
-                <a class="btn btn-primary" href="addemp.php" role="button">Add Employee</a>
-              </div> -->
               <div class="btn-group">
-                <a class="btn btn-primary" href="login.php" role="button">Logout</a>
+                <a class="btn btn-primary" href="functions.php?logout=logout;" role="button">Logout</a>
               </div>
             </div>
 
@@ -75,8 +75,8 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
 
 
 
-                <h3><?php echo $logged_in_user['Employee_Name']; ?></h3>
-                <p><?php echo $logged_in_user['Designation'];?></p>
+                <h3><?php echo $Employee_Name; ?></h3>
+                <p><?php echo $Designation;?></p>
               </div>
             </div>
           </div>
@@ -192,7 +192,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
 
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script type="text/javascript" src="js/main.js"></script>
+    <!-- <script type="text/javascript" src="js/main.js"></script> -->
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js"></script>
