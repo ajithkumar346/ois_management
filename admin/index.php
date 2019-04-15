@@ -64,7 +64,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
                 <!-- <a class="btn btn-success" href="#" role="button">Export</a> -->
               </div>
               <div class="btn-group">
-                <a class="btn btn-primary" href="addemp.php" role="button">Add Employee</a>
+                <a class="btn btn-primary" href="addemp.php?Employee_Id=<?php echo $Employee_Id ?>" role="button">Add Employee</a>
               </div>
               <div class="btn-group">
                 <a class="btn btn-warning " style="float:right;" href="#" role="button">Export</a>

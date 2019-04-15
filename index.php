@@ -25,6 +25,9 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
 }
 ?>
 
+<!-- Login log out -->
+
+
 <!doctype html>
 <html lang="en">
   <head>

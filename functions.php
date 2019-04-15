@@ -57,7 +57,7 @@ global $Login_Time;
           $Employee_Id=$logged_in_user['Employee_Id'];
           if ($username=='Santosh') {
             // code...
-            header('location: admin/index.php?Employee_Id= '.$Employee_Id.'');
+            header('location: admin/index.php?Employee_Id='.$Employee_Id.'');
           }else {
             // code...
             echo $Login_Time;
