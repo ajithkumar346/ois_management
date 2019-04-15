@@ -54,12 +54,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
             <div class="col-md-8 white-text text-center text-md-left mt-xl-3 mb-5">
               <img src="images/oislogo.png" alt="Logo">
             </div>
-
-            <div class="col-md-2 mt-xl-2 mb-5">
-
-              <div class="btn-group">
-
-            <div class="col-md-4 mt-xl-2 mb-5">
+            <div class="col-md-4 mt-xl-2 mb-5 mt-xl-3 mb-5">
               <div class="btn-group">
                 <!-- <a class="btn btn-success" href="#" role="button">Export</a> -->
               </div>

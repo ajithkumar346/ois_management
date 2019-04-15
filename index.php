@@ -1,9 +1,12 @@
 <?php
+date_default_timezone_set('Asia/Kolkata');
+
 $db = mysqli_connect('localhost', 'root', '', 'ois_management');
 
 //include('functions.php');
 //$Employee_Name1=$_GET['Employee_Id'];
 $Employee_Id=e($_GET['Employee_Id']);
+
 /*echo $Employee_Id;*/
 $con = mysqli_connect('localhost', 'root', '', 'ois_management');
 
@@ -22,10 +25,15 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
                       $Employee_Name=  $logged_in_user['Employee_Name'];
                       $Designation=$logged_in_user['Designation'];
 
+                     
 }
+ $qry1 ="SELECT * from attendance where Employee_Id='$Employee_Id' LIMIT 1";
+ $result1 = mysqli_query($con, $qry1);
+        if (mysqli_num_rows($result1) == 1) {
+          $logged_in_users = mysqli_fetch_assoc($result1);
+                $image=$logged_in_users['image'];
+              }
 ?>
-
-<!-- Login log out -->
 
 
 <!doctype html>
@@ -57,13 +65,13 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
         <div class="container">
           <div class="row">
             <!--Grid column-->
-            <div class="col-md-10 white-text text-center text-md-left mt-xl-3 mb-5">
+            <div class="col-md-11 white-text text-center text-md-left mt-xl-3 mb-5">
               <img src="images/oislogo.png" alt="Logo">
             </div>
-            <div class="col-md-2 mt-xl-2 mb-5">
-              <div class="btn-group">
+            <div class="col-md-1 mt-xl-2 mb-5">
+              <!-- <div class="btn-group">
              <a class="btn btn-success" href="login.php" role="button">Home</a>
-              </div>
+              </div> -->
               <div class="btn-group">
                 <a class="btn btn-primary" href="functions.php?logout=logout;" role="button">Logout</a>
               </div>
@@ -71,39 +79,44 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
 
             <div class="row">
               <div class="col-md-4">
-                <img class="rounded-circle" src="images/user.jpg" alt="username">
+                <img class="rounded-circle" src="admin/upload/<?php echo $image; ?>" alt="username">
               </div>
               <div class="col-md-8 txt-emp">
                 <!-- <h3>Employee Name</h3> -->
-
-
-
                 <h3><?php echo $Employee_Name; ?></h3>
                 <p><?php echo $Designation;?></p>
               </div>
             </div>
           </div>
           <!-- date -->
+          <form method="POST">
           <div class="row">
-            <div class="col-lg-4"></div>
-            <div class="col-lg-2">
-              <!-- <div class="form-group">
-                    <label for="startDate">Start Date</label>
-                    <input type="text" class="form-control" id="startDate" value="07/01/2015">
-              </div> -->
-            </div>
-            <div class="col-lg-2">
-              <!-- <div class="form-group">
-                <label for="endDate">End Date</label>
-                <input type="text" class="form-control" id="endDate" value="07/15/2015">
-              </div> -->
-            </div>
-            <div class="col-lg-1">
-              <a class="btn btn-break btn-circle btn-lg rounded-circle" href="#" role="button"><i class="fas fa-mug-hot"></i></a>
-            </div>
-            <div class="col-lg-1">
-              <a class="btn btn-info btn-circle btn-lg rounded-circle" href="#" role="button"><i class="fas fa-utensils"></i></a>
-            </div>
+            <div class="col-lg-5"></div>
+              
+                  <div class="col-lg-1">
+                    <div class="btn-group">
+                      <a class="btn btn-primary emplogin" name="emplogin" href="#" role="button">Login</a>
+                    </div>
+                  </div>            
+                  <div class="col-lg-1">
+                    <a class="btn btn-break btn-circle btn-lg rounded-circle tbreak" name="tbreak" href="#" role="button"><img src="images/tbreak.png" alt="tbreak"></a>
+                  </div>
+                  <div class="col-lg-1">
+                    <a class="btn btn-primary btn-circle btn-lg rounded-circle lunch" name="lunch" href="#" role="button"><img src="images/lunch.png"></a>
+                  </div>
+                  <div class="col-lg-1">
+                    <a class="btn btn-break btn-circle btn-lg rounded-circle cbreak" name="cbreak" href="#" role="button"><img src="images/cbreak.png"></a>
+                  </div>
+                  <div class="col-lg-1">
+                    <div class="btn-group">
+                      <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-primary emplogout" name="emplogout" data-toggle="modal" data-target="#exampleModal">
+                      Logout
+                      </button>
+                    </div>
+                  </div>
+              </form>
+
             <div class="col-lg-2">
               <div class="input-group mb-3">
                 <label>Current Date</label>
@@ -111,6 +124,28 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
               </div>
             </div>
           </div>
+          <!-- popup modal -->
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Are you sure</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure do you want to logout?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a role="button" href="login.php" class="btn btn-primary">Yes</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- //end popup modal -->
         </div>
       </div>
       <!-- Full Page Intro -->
@@ -169,10 +204,10 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
   </table>
   <div class="container">
     <div class="row">
-      <div class="col-lg-9">
+      <div class="col-lg-10">
 
       </div>
-      <div class="col-lg-3">
+      <div class="col-lg-2">
         <div class="btn-group">
           <a class="btn btn-primary" href="timelist.php" role="button">check previous days</a>
         </div>
@@ -207,4 +242,20 @@ function e($val){
   global $db;
   return mysqli_real_escape_string($db, trim($val));
 }
+
+ if (isset($_GET['emplogout'])) {
+      $Logout_Time= date("h:i:sa");
+    $query1 = "UPDATE user_table SET Logout_Time='$Logout_Time'  WHERE 'Employee_Id'='$Employee_Id' LIMIT 1";
+    $results1 = mysqli_query($db, $query1);
+  }
+  if (isset($_GET['emplogin'])) {
+      $Login_Time= date("h:i:sa");
+    $query1 = "UPDATE user_table SET Logout_Time='$Login_Time'  WHERE 'Employee_Id'='$Employee_Id' LIMIT 1";
+    $results1 = mysqli_query($db, $query1);
+  }
+  if (isset($_GET['tbreak'])) {
+      $Login_Time= date("h:i:sa");
+    $query1 = "UPDATE user_table SET Logout_Time='$Login_Time'  WHERE 'Employee_Id'='$Employee_Id' LIMIT 1";
+    $results1 = mysqli_query($db, $query1);
+  }
  ?>

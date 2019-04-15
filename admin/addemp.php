@@ -12,12 +12,43 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
 
                        /*echo "Connections are made successfully::";*/
 
+/*upload*/
+ 
+    if(isset($_POST['but_upload'])){
+        $Employee_Id=$_POST['Employee_Id'];
+        $Employee_Name=$_POST['Employee_Name'];
+        $Designation=$_POST['Designation'];
 
-//Image
+        $name = $_FILES['file']['name'];
+        $target_dir = "upload/";
+        $target_file = $target_dir . basename($_FILES["file"]["name"]);
 
+        // Select file type
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
+        // Valid file extensions
+        $extensions_arr = array("jpg","jpeg","png","gif");
 
+        // Check extension
+        if( in_array($imageFileType,$extensions_arr) ){
+            
+            // Convert to base64 
+            $image_base64 = base64_encode(file_get_contents($_FILES['file']['tmp_name']) );
+            $image = 'data:image/'.$imageFileType.';base64,'.$image_base64;
 
+            // Insert record
+             $sql = "INSERT INTO attendance (Employee_Id, Employee_Name, Designation,image,Photo_path) VALUES ('$Employee_Id', '$Employee_Name', '$Designation','".$name."','upload/')";
+  mysqli_query($con, $sql); //store the submitted data into the database table: images
+            //$query = "insert into attendance(name,image) values('".$name."','".$image."')";
+           
+            //mysqli_query($con,$query) or die(mysqli_error($con));
+            
+            // Upload file
+            move_uploaded_file($_FILES['file']['tmp_name'],'upload/'.$name);
+             header('location: index.php?Employee_Id= '.$Employee_Id1.'');
+        }
+    
+    }
 ?>
 
 
@@ -67,14 +98,14 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
 
             <div class="row">
               <div class="col-md-4">
-                <div class="avatar-upload">
-                  
-                  <div class="avatar-edit">
-                    <input class="inpimg" type='file' name="files" multiple="multiple" id="imageUpload" data-error="Please select an image"accept=".png, .jpg, .jpeg" />
-                    <label class="labvew" for="imageUpload"><i class="fas fa-upload upimg"></i></label>
+                <form method="POST" enctype="multipart/form-data">
+                  <div class="avatar-upload">  
+                    <div class="avatar-edit">
+                      <input class="inpimg file" type='file' name="file"  multiple="multiple" id="imageUpload" data-error="Please select an image"accept=".png, .jpg, .jpeg" />
+                      <label class="labvew" name="file" for="imageUpload"><i class="fas fa-upload upimg"></i></label>
+                    </div> 
                   </div>
-                  
-                </div>
+                <!-- </form> -->
                 <div class="avatar-preview">
                   <div id="imagePreview" class="prv" style="background-color: white;">
                     </div>
@@ -94,23 +125,23 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
     <div class="container pt-4">
       <div class="row">
         <div class="col-lg-12">
-          <form method="POST">
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" name="Employee_Id" placeholder="Employee_Id" aria-label="Employee_Id" aria-describedby="basic-addon1">
-          </div>
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" name="Employee_Name" placeholder="Employee_Name" aria-label="Employee_Name" aria-describedby="basic-addon1">
-          </div>
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" name="Designation" placeholder="Designation" aria-label="Designation" aria-describedby="basic-addon1">
-          </div>
-          <div class="input-group mb-3">
-            <input type="password" class="form-control" name="Password" placeholder="password" aria-label="password" aria-describedby="basic-addon1">
-          </div>
-          <div class="btn-group">
-            <!-- <a class="btn btn-primary upload" name="upload" role="button">Save</a> -->
-            <input type="submit" class="btn btn-primary upload" name="upload" value="Save">
-          </div>
+          <!-- <form method="POST"> -->
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" name="Employee_Id" placeholder="Employee_Id" aria-label="Employee_Id" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" name="Employee_Name" placeholder="Employee_Name" aria-label="Employee_Name" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" name="Designation" placeholder="Designation" aria-label="Designation" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
+              <input type="password" class="form-control" name="Password" placeholder="password" aria-label="password" aria-describedby="basic-addon1">
+            </div>
+            <div class="btn-group">
+              <!-- <a class="btn btn-primary upload" name="upload" role="button">Save</a> -->
+              <input type="submit" class="btn btn-primary but_upload" name="but_upload" value="Save">
+            </div>
           </form>
         </div>
       </div>
@@ -143,50 +174,3 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
     </script>
   </body>
 </html>
-<?php
-if(isset($_POST['upload']))
-{
-  $Employee_Id=$_POST['Employee_Id'];
-  $Employee_Name=$_POST['Employee_Name'];
-  $Designation=$_POST['Designation'];
-  echo $Employee_Id, $Employee_Name, $Designation;
-  //path to store the uploaded image
-  $target = "images/".basename($_FILES['files']['name']);
-
-  //Get all the submitted data from the form
-  $image = $_FILES['files']['name'];
-  //$text = $_POST['text'];
-  /*if(isset($_FILES["files"])==false)
-    {
-      echo "<b>Please, Select the files to upload!!!</b>";
-      return;
-    }
-foreach($_FILES["files"]["tmp_name"] as $key=>$tmp_name)
-    {
-      $uploadThisFile = true;
-      
-      $file_name=$_FILES["files"]["name"][$key];
-      $file_tmp=$_FILES["files"]["tmp_name"][$key];  
-      $ext=pathinfo($file_name,PATHINFO_EXTENSION);
-
-      if($uploadThisFile){
-        $filename=basename($file_name,$ext);
-        $newFileName=$filename.$ext;        
-        move_uploaded_file($_FILES["files"]["tmp_name"][$key],"../Uploads/".$newFileName);
-
-}
-*/
-
-  $sql = "INSERT INTO attendance (Employee_Id, Employee_Name, Designation) VALUES ('$Employee_Id', '$Employee_Name', '$Designation')";
-  mysqli_query($db, $sql); //store the submitted data into the database table: images
-//}
-  //Now let's move the uploaded image into the folder: images
-  /*if (move_uploaded_file($_FILES['image']['tmp_name'], $target)){
-    $msg = "Image uploaded successfully";
-  }else{
-    $msg = "There was a problem uploading image";
-  }*/
-  // header('location: index.php?Employee_Id='.$Employee_Id1.'');
-   echo "<script>setTimeout(\"location.href = 'index.php?Employee_Id='.$Employee_Id1.'';\",1000);</script>";
- }
- ?>

@@ -19,8 +19,8 @@ global $Login_Time;
   if (isset($_GET['logout'])) {
     session_destroy();
     $Logout_Time= date("h:i:sa");
-    $query1 = "UPDATE user_table SET Logout_Time='$Logout_Time'  WHERE 1";
-    $results1 = mysqli_query($db, $query1);
+ //   $query1 = "UPDATE user_table SET Logout_Time='$Logout_Time'  WHERE 1";
+  //  $results1 = mysqli_query($db, $query1);
     unset($_SESSION['user']);
    header("location: login.php");
   }
@@ -61,8 +61,8 @@ global $Login_Time;
           }else {
             // code...
             echo $Login_Time;
-            $query1 = "UPDATE user_table SET Login_Time='$Login_Time'  WHERE 1";
-            $results1 = mysqli_query($db, $query1);
+          //  $query1 = "UPDATE user_table SET Login_Time='$Login_Time'  WHERE 1";
+          //  $results1 = mysqli_query($db, $query1);
 
          header('location: index.php?Employee_Id= '.$Employee_Id.'');
         //  echo "<script>setTimeout(\"location.href = 'index.php?Employee_Id='.$Employee_Id.'';\",1000);</script>";
