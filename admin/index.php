@@ -138,10 +138,9 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
       <tr>
         <?php
       //include_once("db_connect.php");
-      $sql = "SELECT Employee_Id, Employee_Name, Designation, Password, image FROM user_logins";
+      $sql = "SELECT Employee_Id, Employee_Name FROM user_logins";
       $resultset = mysqli_query($con, $sql) or die("database error:". mysqli_error($con));
       while( $record = mysqli_fetch_assoc($resultset) ) {
-        $image=$record['image'];
       ?>
         <th scope="row"><?php echo $record['Employee_Id']; ?></th>
         <td><?php echo $record['Employee_Name']; ?></td>
@@ -157,16 +156,10 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
       </tr>
     </tbody>
   </table>
+<?php }?>
   <div class="container">
     <div class="row">
-      <div class="col-lg-11">
-
-      </div>
-<!--       <div class="col-lg-1">
-        <div class="btn-group">
-          <a class="btn btn-primary" href="index.php" role="button">Back</a>
-        </div>
-      </div> -->
+      <div class="col-lg-11"></div>
     </div>
   </div>
 
@@ -196,4 +189,4 @@ function e($val){
   global $db;
   return mysqli_real_escape_string($db, trim($val));
 }
- ?>
+?>
