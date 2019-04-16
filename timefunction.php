@@ -5,7 +5,7 @@ $Employee_Id=$_GET['Employee_Id'];
   // connect to database
   $db = mysqli_connect('localhost', 'root', '', 'ois_management');
 
-    if (isset['emplogin']); {
+    if (isset($_POST['emplogin'])); {
   /*$date_clicked=date("h:i:sa");
   echo "kfgriythflrhtliu".$date_clicked."";*/
     $Logout_Time= date("h:i:sa");
