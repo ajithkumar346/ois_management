@@ -1,5 +1,7 @@
 <?php
-$con = mysqli_connect('localhost', 'root', '', 'ois');
+$Employee_Id=$_GET['Employee_Id'];
+
+$con = mysqli_connect('localhost', 'root', '', 'ois_management');
 
                            if (!$con)
                              {
@@ -31,14 +33,49 @@ $con = mysqli_connect('localhost', 'root', '', 'ois');
     <script type="text/javascript" src="daterangepicker.js"></script>
   </head>
   <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-light bg-light mb-3">
+      <a class="navbar-brand" href="index.php?Employee_Id=<?php echo $Employee_Id;?>">
+        <img src="images/oislogo.png" height="30" class="d-inline-block align-top" alt="">
+      </a>
+    </nav>
+
+    <!-- Cards -->
+    <div class="container mt-3">
+      <div class="row">
+      <?php
+      //include_once("db_connect.php");
+      $sql = "SELECT Employee_Id, Employee_Name, Designation, Password, image FROM employees";
+      $resultset = mysqli_query($con, $sql) or die("database error:". mysqli_error($con));
+      while( $record = mysqli_fetch_assoc($resultset) ) {
+        $image=$record['image'];
+      ?>
+      
+        <div class="col-sm-3">
+          <div class="card">
+            <img src="upload/<?php echo $image; ?>" class="card-img-top" alt="Emp Name">
+            <div class="card-body">
+              <h5 class="card-title"><?php echo $record['Employee_Name']; ?></h5>
+              <a href="#" class="btn btn-primary">Attendance list</a>
+            </div>
+          </div>
+        </div>
+        <?php } ?>
+      </div>
+    </div>
     <!-- date -->
     <div class="container">
       <div class="row">
-        <div class="col-lg-6"></div>
+        <div class="col-lg-4"></div>
+        <div class="col-lg-2 pt-2">
+          <div class="btn-group">
+            <a class="btn btn-warning " style="float:right;" href="#" role="button">Export</a>
+          </div>
+        </div>
         <div class="col-lg-2">
           <div class="form-group">
-                <label for="startDate">Start Date</label>
-                <input type="text" class="form-control" id="startDate" value="07/01/2015">
+            <label for="startDate">Start Date</label>
+            <input type="text" class="form-control" id="startDate" value="07/01/2015">
           </div>
         </div>
         <div class="col-lg-2">
@@ -102,7 +139,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois');
       </div>
       <div class="col-lg-1"> 
         <div class="btn-group">
-          <a class="btn btn-primary" href="index.php" role="button">Back</a>
+          <a class="btn btn-primary" href="index.php?Employee_Id=<?php echo $Employee_Id;?>" role="button">Back</a>
         </div>
       </div>
     </div>

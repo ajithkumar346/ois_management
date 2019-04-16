@@ -1,38 +1,37 @@
 <?php
-date_default_timezone_set('Asia/Kolkata');
+  date_default_timezone_set('Asia/Kolkata');
 
-$db = mysqli_connect('localhost', 'root', '', 'ois_management');
+  $db = mysqli_connect('localhost', 'root', '', 'ois_management');
 
-//include('functions.php');
-//$Employee_Name1=$_GET['Employee_Id'];
-$Employee_Id=e($_GET['Employee_Id']);
+  //include('functions.php');
+  //$Employee_Name1=$_GET['Employee_Id'];
+  $Employee_Id=e($_GET['Employee_Id']);
 
-/*echo $Employee_Id;*/
-$con = mysqli_connect('localhost', 'root', '', 'ois_management');
+  /*echo $Employee_Id;*/
+  $con = mysqli_connect('localhost', 'root', '', 'ois_management');
 
-                           if (!$con)
-                             {
-                             die('Could not connect: ' . mysqli_error());
-                             }
+    if (!$con)
+     {
+     die('Could not connect: ' . mysqli_error());
+     }
 
-                       /*echo "Connections are made successfully::";*/
-                       $qry ="SELECT * from user_table where Employee_Id='$Employee_Id' LIMIT 1";
-                       $result = mysqli_query($con, $qry);
-  if (mysqli_num_rows($result) == 1) {
-                         $logged_in_user = mysqli_fetch_assoc($result);
-                         //$test=$logged_in_user['Employee_Name'];
-                        // echo $test;
-                      $Employee_Name=  $logged_in_user['Employee_Name'];
-                      $Designation=$logged_in_user['Designation'];
-
-                     
+    /*echo "Connections are made successfully::";*/
+    $qry ="SELECT * from user_logins where Employee_Id='$Employee_Id' LIMIT 1";
+    $result = mysqli_query($con, $qry);
+    if (mysqli_num_rows($result) == 1) {
+      $logged_in_user = mysqli_fetch_assoc($result);
+      //$test=$logged_in_user['Employee_Name'];
+      // echo $test;
+      $Employee_Name=  $logged_in_user['Employee_Name'];
+      $Designation=$logged_in_user['Designation'];               
 }
- $qry1 ="SELECT * from attendance where Employee_Id='$Employee_Id' LIMIT 1";
+
+ $qry1 ="SELECT * from employees where Employee_Id='$Employee_Id' LIMIT 1";
  $result1 = mysqli_query($con, $qry1);
-        if (mysqli_num_rows($result1) == 1) {
-          $logged_in_users = mysqli_fetch_assoc($result1);
-                $image=$logged_in_users['image'];
-              }
+  if (mysqli_num_rows($result1) == 1) {
+    $logged_in_users = mysqli_fetch_assoc($result1);
+      $image=$logged_in_users['image'];
+    }
 ?>
 
 
@@ -140,7 +139,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <a role="button" href="login.php" class="btn btn-primary">Yes</a>
+                    <a role="button" href="index.php" class="btn btn-primary">Yes</a>
                   </div>
                 </div>
               </div>
@@ -204,12 +203,12 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
   </table>
   <div class="container">
     <div class="row">
-      <div class="col-lg-10">
+      <div class="col-lg-9">
 
       </div>
-      <div class="col-lg-2">
+      <div class="col-lg-3">
         <div class="btn-group">
-          <a class="btn btn-primary" href="timelist.php" role="button">check previous days</a>
+          <a class="btn btn-primary" href="timelist.php?Employee_Id=<?php echo $Employee_Id;?>" role="button">check previous days</a>
         </div>
       </div>
     </div>

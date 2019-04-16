@@ -21,7 +21,7 @@ global $Login_Time;
     $Logout_Time= date("h:i:sa");
  //   $query1 = "UPDATE user_table SET Logout_Time='$Logout_Time'  WHERE 1";
   //  $results1 = mysqli_query($db, $query1);
-    $query1 = "UPDATE user_table SET Logout_Time='$Logout_Time'  WHERE Employee_Id=$Employee_Id";
+    $query1 = "UPDATE user_logins SET Logout_Time='$Logout_Time'  WHERE Employee_Id=$Employee_Id";
     $results1 = mysqli_query($db, $query1);
     unset($_SESSION['user']);
    header("location: login.php");
@@ -47,7 +47,7 @@ global $Login_Time;
     if (count($errors) == 0) {
       $password = ($password);
 
-      $query = "SELECT * FROM attendance WHERE Employee_Name='$username' AND Password='$password' LIMIT 1";
+      $query = "SELECT * FROM employees WHERE Employee_Name='$username' AND Password='$password' LIMIT 1";
       $results = mysqli_query($db, $query);
 
       if (mysqli_num_rows($results) == 1) { // user found
@@ -66,7 +66,7 @@ global $Login_Time;
           //  $query1 = "UPDATE user_table SET Login_Time='$Login_Time'  WHERE 1";
           //  $results1 = mysqli_query($db, $query1);
 
-         header('location: index.php?Employee_Id= '.$Employee_Id.'');
+         header('location: index.php?Employee_Id='.$Employee_Id.'');
         //  echo "<script>setTimeout(\"location.href = 'index.php?Employee_Id='.$Employee_Id.'';\",1000);</script>";
           }
         //  header('location: index.php?Employee_Name= '.$username.'');
