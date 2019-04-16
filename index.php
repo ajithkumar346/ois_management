@@ -25,7 +25,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
                       $Employee_Name=  $logged_in_user['Employee_Name'];
                       $Designation=$logged_in_user['Designation'];
 
-                     
+
 }
  $qry1 ="SELECT * from attendance where Employee_Id='$Employee_Id' LIMIT 1";
  $result1 = mysqli_query($con, $qry1);
@@ -89,15 +89,17 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
             </div>
           </div>
           <!-- date -->
-          <form method="POST">
+          <form method="POST" action="" >
           <div class="row">
             <div class="col-lg-5"></div>
-              
+
                   <div class="col-lg-1">
                     <div class="btn-group">
-                      <a class="btn btn-primary emplogin" name="emplogin" href="#" role="button">Login</a>
-                    </div>
-                  </div>            
+                      <!-- <a class="btn btn-primary emplogin" id="emplogin" name="emplogin" href="#" role="button">Login</a> -->
+                      <button type="button" class="btn btn-primary " name="emplogin">Login</button>
+                      <!-- <input type="submit" class="btn btn-primary emplogin"id="emplogin" name="emplogin" value="Login"> -->
+                  </div>
+                </div>
                   <div class="col-lg-1">
                     <a class="btn btn-break btn-circle btn-lg rounded-circle tbreak" name="tbreak" href="#" role="button"><img src="images/tbreak.png" alt="tbreak"></a>
                   </div>
@@ -209,7 +211,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
       </div>
       <div class="col-lg-2">
         <div class="btn-group">
-          <a class="btn btn-primary" href="timelist.php" role="button">check previous days</a>
+          <a class="btn btn-primary" href="timelist.php?Employee_Id=<?php echo $Employee_Id ?>" role="button">check previous days</a>
         </div>
       </div>
     </div>
@@ -235,12 +237,22 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap.js"></script>
+
   </body>
 </html>
 <?php
 function e($val){
   global $db;
   return mysqli_real_escape_string($db, trim($val));
+}
+if (isset($_POST['emplogin'])) {
+  $date_clicked=date("h:i:sa");
+  echo "kfgriythflrhtliu".$date_clicked."";
+  //   $Login_Time= date("h:i:sa");
+  //  echo "hello";
+  // $query1 = "UPDATE user_table SET Logout_Time='$Login_Time'  WHERE 'Employee_Id'='$Employee_Id' LIMIT 1";
+  // $results1 = mysqli_query($db, $query1);
+
 }
 
  if (isset($_GET['emplogout'])) {
@@ -250,8 +262,10 @@ function e($val){
   }
   if (isset($_GET['emplogin'])) {
       $Login_Time= date("h:i:sa");
+    //  echo "hello";
     $query1 = "UPDATE user_table SET Logout_Time='$Login_Time'  WHERE 'Employee_Id'='$Employee_Id' LIMIT 1";
     $results1 = mysqli_query($db, $query1);
+
   }
   if (isset($_GET['tbreak'])) {
       $Login_Time= date("h:i:sa");
