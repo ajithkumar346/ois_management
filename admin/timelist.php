@@ -49,6 +49,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
       $resultset = mysqli_query($con, $sql) or die("database error:". mysqli_error($con));
       while( $record = mysqli_fetch_assoc($resultset) ) {
         $image=$record['image'];
+        $Employee_Id1 =$record['Employee_Id'];
       ?>
       
         <div class="col-sm-3">
@@ -56,94 +57,14 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
             <img src="upload/<?php echo $image; ?>" class="card-img-top" alt="Emp Name">
             <div class="card-body">
               <h5 class="card-title"><?php echo $record['Employee_Name']; ?></h5>
-              <a href="#" class="btn btn-primary">Attendance list</a>
+              <a href="empatt.php?Employee_Id=<?php echo $Employee_Id1 ?>" class="btn btn-primary">Attendance list</a>
             </div>
           </div>
         </div>
         <?php } ?>
       </div>
     </div>
-    <!-- date -->
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-4"></div>
-        <div class="col-lg-2 pt-2">
-          <div class="btn-group">
-            <a class="btn btn-warning " style="float:right;" href="#" role="button">Export</a>
-          </div>
-        </div>
-        <div class="col-lg-2">
-          <div class="form-group">
-            <label for="startDate">Start Date</label>
-            <input type="text" class="form-control" id="startDate" value="07/01/2015">
-          </div>
-        </div>
-        <div class="col-lg-2">
-          <div class="form-group">
-            <label for="endDate">End Date</label>
-            <input type="text" class="form-control" id="endDate" value="07/15/2015">
-          </div>
-        </div>
-        <div class="col-lg-2">
-          <div class="input-group mb-3">
-            <label>Current Date</label>
-            <span class="date-box" id="date"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- table -->
-    
-  <table class="table table-striped table-bordered">
-    <thead>
-      <tr>
-        <th scope="col" rowspan="2">Emp ID</th>
-        <th scope="col" rowspan="2">Employee name</th>
-        <th scope="col" rowspan="2">Login</th>
-        <th scope="col" colspan="2">Break</th>
-        <th scope="col" colspan="2">Lunch</th>
-        <th scope="col" colspan="2">Break</th>
-        <th scope="col" rowspan="2">Logout</th>
-        <th scope="col" rowspan="2">Total hrs</th>
-      </tr>
-      <tr>
-        <th scope="col">Out time</th>
-        <th scope="col">In time</th>
-        <th scope="col">Out time</th>
-        <th scope="col">In time</th>
-        <th scope="col">Out time</th>
-        <th scope="col">In time</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">OIS00037</th>
-        <td>Ravi Kiran</td>
-        <td>11:30</td>
-        <td>12:15</td>
-        <td>12:30</td>
-        <td>01:40</td>
-        <td>02:15</td>
-        <td>04:20</td>
-        <td>04:35</td>
-        <td>06:40</td>
-        <td>07:00</td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-11">
-    
-      </div>
-      <div class="col-lg-1"> 
-        <div class="btn-group">
-          <a class="btn btn-primary" href="index.php?Employee_Id=<?php echo $Employee_Id;?>" role="button">Back</a>
-        </div>
-      </div>
-    </div>
-  </div>
+   
 
 
     <script>

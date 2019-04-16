@@ -2,9 +2,6 @@
   date_default_timezone_set('Asia/Kolkata');
 
   $db = mysqli_connect('localhost', 'root', '', 'ois_management');
-
-  //include('functions.php');
-  //$Employee_Name1=$_GET['Employee_Id'];
   $Employee_Id=e($_GET['Employee_Id']);
 
   /*echo $Employee_Id;*/
@@ -14,38 +11,24 @@
      {
      die('Could not connect: ' . mysqli_error());
      }
+              /*echo "Connections are made successfully::";*/
+              $qry ="SELECT * from user_logins where Employee_Id='$Employee_Id' LIMIT 1";
+              $result = mysqli_query($con, $qry);
+              if (mysqli_num_rows($result) == 1) {
+                  $logged_in_user = mysqli_fetch_assoc($result);
+                   //$test=$logged_in_user['Employee_Name'];
+                   // echo $test;
+                   $Employee_Name=  $logged_in_user['Employee_Name'];
+                   $Designation=$logged_in_user['Designation'];               
 
+              }
 
-                       /*echo "Connections are made successfully::";*/
-                       $qry ="SELECT * from user_table where Employee_Id='$Employee_Id' LIMIT 1";
-                       $result = mysqli_query($con, $qry);
-  if (mysqli_num_rows($result) == 1) {
-                         $logged_in_user = mysqli_fetch_assoc($result);
-                         //$test=$logged_in_user['Employee_Name'];
-                        // echo $test;
-                      $Employee_Name=  $logged_in_user['Employee_Name'];
-                      $Designation=$logged_in_user['Designation'];
-
-
-
-    /*echo "Connections are made successfully::";*/
-    $qry ="SELECT * from user_logins where Employee_Id='$Employee_Id' LIMIT 1";
-    $result = mysqli_query($con, $qry);
-    if (mysqli_num_rows($result) == 1) {
-      $logged_in_user = mysqli_fetch_assoc($result);
-      //$test=$logged_in_user['Employee_Name'];
-      // echo $test;
-      $Employee_Name=  $logged_in_user['Employee_Name'];
-      $Designation=$logged_in_user['Designation'];               
-
-}
-
- $qry1 ="SELECT * from employees where Employee_Id='$Employee_Id' LIMIT 1";
- $result1 = mysqli_query($con, $qry1);
-  if (mysqli_num_rows($result1) == 1) {
-    $logged_in_users = mysqli_fetch_assoc($result1);
-      $image=$logged_in_users['image'];
-    }
+              $qry1 ="SELECT * from employees where Employee_Id='$Employee_Id' LIMIT 1";
+              $result1 = mysqli_query($con, $qry1);
+              if (mysqli_num_rows($result1) == 1) {
+                  $logged_in_users = mysqli_fetch_assoc($result1);
+                  $image=$logged_in_users['image'];
+              }
 ?>
 
 
@@ -192,12 +175,8 @@
     </thead>
     <tbody>
       <?php
-      //  $sql1 ="SELECT * from user_table where Employee_Name='$Employee_Id' LIMIT 1";
-      //$result1 = mysqli_query($con, $sql1);
 
         if (mysqli_num_rows($result) > 0){
-        //  while ($row = $result -> fetch_assoc()) {
-
             echo"<tr>
               <td>".$logged_in_user['Employee_Id']."</td>
               <td>".$logged_in_user['Employee_Name']."</td>
@@ -211,7 +190,7 @@
               <td>".$logged_in_user['Logout_Time']."</td>
               <td>07:00</td>
             </tr>";
-          //}
+          
         }
       ?>
 
@@ -262,31 +241,5 @@ function e($val){
   global $db;
   return mysqli_real_escape_string($db, trim($val));
 }
-if (isset($_POST['emplogin'])) {
-  $date_clicked=date("h:i:sa");
-  echo "kfgriythflrhtliu".$date_clicked."";
-  //   $Login_Time= date("h:i:sa");
-  //  echo "hello";
-  // $query1 = "UPDATE user_table SET Logout_Time='$Login_Time'  WHERE 'Employee_Id'='$Employee_Id' LIMIT 1";
-  // $results1 = mysqli_query($db, $query1);
 
-}
-
- if (isset($_GET['emplogout'])) {
-      $Logout_Time= date("h:i:sa");
-    $query1 = "UPDATE user_table SET Logout_Time='$Logout_Time'  WHERE 'Employee_Id'='$Employee_Id' LIMIT 1";
-    $results1 = mysqli_query($db, $query1);
-  }
-  if (isset($_GET['emplogin'])) {
-      $Login_Time= date("h:i:sa");
-    //  echo "hello";
-    $query1 = "UPDATE user_table SET Logout_Time='$Login_Time'  WHERE 'Employee_Id'='$Employee_Id' LIMIT 1";
-    $results1 = mysqli_query($db, $query1);
-
-  }
-  if (isset($_GET['tbreak'])) {
-      $Login_Time= date("h:i:sa");
-    $query1 = "UPDATE user_table SET Logout_Time='$Login_Time'  WHERE 'Employee_Id'='$Employee_Id' LIMIT 1";
-    $results1 = mysqli_query($db, $query1);
-  }
  ?>

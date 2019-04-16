@@ -1,25 +1,22 @@
 <?php
-$db = mysqli_connect('localhost', 'root', '', 'ois_management');
+  $db = mysqli_connect('localhost', 'root', '', 'ois_management');
+  $Employee_Id=e($_GET['Employee_Id']);
+  /*echo $Employee_Id;*/
+  $con = mysqli_connect('localhost', 'root', '', 'ois_management');
 
-//include('functions.php');
-//$Employee_Name1=$_GET['Employee_Id'];
-$Employee_Id=e($_GET['Employee_Id']);
-/*echo $Employee_Id;*/
-$con = mysqli_connect('localhost', 'root', '', 'ois_management');
+       if (!$con)
+       {
+       die('Could not connect: ' . mysqli_error());
+       }
 
-                           if (!$con)
-                             {
-                             die('Could not connect: ' . mysqli_error());
-                             }
-
-                       /*echo "Connections are made successfully::";*/
-                       $qry ="SELECT * from user_logins where Employee_Id='$Employee_Id' LIMIT 1";
-                       $result = mysqli_query($con, $qry);
-  if (mysqli_num_rows($result) == 1) {
-                         $logged_in_user = mysqli_fetch_assoc($result);
+       /*echo "Connections are made successfully::";*/
+       $qry ="SELECT * from user_logins where Employee_Id='$Employee_Id' LIMIT 1";
+       $result = mysqli_query($con, $qry);
+       if (mysqli_num_rows($result) == 1) {
+                $logged_in_user = mysqli_fetch_assoc($result);
                          //$test=$logged_in_user['Employee_Name'];
                         // echo $test;
-}
+        }
 ?>
 
 <!doctype html>
@@ -88,7 +85,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
 
     <!-- table -->
     <!-- date -->
-    <div class="container pt-3">
+    <!-- <div class="container pt-3">
       <div class="row">
         <div class="col-lg-6"></div>
         <div class="col-lg-2">
@@ -110,7 +107,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
   <!-- table -->
   <table class="table table-striped table-bordered">
@@ -134,33 +131,39 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
         <th scope="col">In time</th>
       </tr>
     </thead>
+
     <tbody>
-      <tr>
-        <?php
+       <?php
       //include_once("db_connect.php");
-      $sql = "SELECT Employee_Id, Employee_Name, Designation, Password, image FROM user_logins";
+      $sql = "SELECT Employee_Id, Employee_Name,Login_Time,out_time_b,in_time_b,out_time_l,in_time_l,out_time_t,in_time_t,Logout_Time,total_hrs  FROM user_logins";
       $resultset = mysqli_query($con, $sql) or die("database error:". mysqli_error($con));
       while( $record = mysqli_fetch_assoc($resultset) ) {
-        $image=$record['image'];
+        //$image=$record['image'];
       ?>
-        <th scope="row"><?php echo $record['Employee_Id']; ?></th>
+      <tr>
+        
+        
+        <td><?php echo $record['Employee_Id']; ?></td>
         <td><?php echo $record['Employee_Name']; ?></td>
-        <td>11:30</td>
-        <td>12:15</td>
-        <td>12:30</td>
-        <td>01:40</td>
-        <td>02:15</td>
-        <td>04:20</td>
-        <td>04:35</td>
-        <td>06:40</td>
-        <td>07:00</td>
+        <td><?php echo $record['Login_Time']; ?></td>
+        <td><?php echo $record['out_time_b']; ?></td>
+        <td><?php echo $record['in_time_b']; ?></td>
+        <td><?php echo $record['out_time_l']; ?></td>
+        <td><?php echo $record['in_time_l']; ?></td>
+        <td><?php echo $record['out_time_t']; ?></td>
+        <td><?php echo $record['in_time_t']; ?></td>
+        <td><?php echo $record['Logout_Time']; ?></td>
+        <td><?php echo $record['total_hrs']; ?></td>
       </tr>
     </tbody>
+     <?php
+}?>
   </table>
+ 
   <div class="container">
     <div class="row">
       <div class="col-lg-11">
-
+        
       </div>
 <!--       <div class="col-lg-1">
         <div class="btn-group">
