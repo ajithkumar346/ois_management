@@ -13,7 +13,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
                              }
 
                        /*echo "Connections are made successfully::";*/
-                       $qry ="SELECT * from user_table where Employee_Id='$Employee_Id' LIMIT 1";
+                       $qry ="SELECT * from user_logins where Employee_Id='$Employee_Id' LIMIT 1";
                        $result = mysqli_query($con, $qry);
   if (mysqli_num_rows($result) == 1) {
                          $logged_in_user = mysqli_fetch_assoc($result);
@@ -61,8 +61,8 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
               <div class="btn-group">
                 <a class="btn btn-primary" href="addemp.php?Employee_Id=<?php echo $Employee_Id ?>" role="button">Add Employee</a>
               </div>
-              <div class="btn-group">
-                <a class="btn btn-warning " style="float:right;" href="#" role="button">Export</a>
+               <div class="btn-group">
+                <a class="btn btn-warning " style="float:right;" href="timelist.php?Employee_Id=<?php echo $Employee_Id ?>" role="button">Employee List</a>
               </div>
               <div class="btn-group">
                 <a class="btn btn-primary" href="../login.php" role="button">Logout</a>
@@ -86,6 +86,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
     </header>
     <!-- Main navigation -->
 
+    <!-- table -->
     <!-- date -->
     <div class="container pt-3">
       <div class="row">
@@ -111,8 +112,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
       </div>
     </div>
 
-    <!-- table -->
-
+  <!-- table -->
   <table class="table table-striped table-bordered">
     <thead>
       <tr>
@@ -136,8 +136,15 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
     </thead>
     <tbody>
       <tr>
-        <th scope="row">OIS00037</th>
-        <td>Ravi Kiran</td>
+        <?php
+      //include_once("db_connect.php");
+      $sql = "SELECT Employee_Id, Employee_Name, Designation, Password, image FROM user_logins";
+      $resultset = mysqli_query($con, $sql) or die("database error:". mysqli_error($con));
+      while( $record = mysqli_fetch_assoc($resultset) ) {
+        $image=$record['image'];
+      ?>
+        <th scope="row"><?php echo $record['Employee_Id']; ?></th>
+        <td><?php echo $record['Employee_Name']; ?></td>
         <td>11:30</td>
         <td>12:15</td>
         <td>12:30</td>
@@ -162,7 +169,6 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
       </div> -->
     </div>
   </div>
-
 
     <script>
       n =  new Date();

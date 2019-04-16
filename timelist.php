@@ -1,5 +1,8 @@
 <?php
-$con = mysqli_connect('localhost', 'root', '', 'ois');
+$Employee_Id=$_GET['Employee_Id'];
+
+
+$con = mysqli_connect('localhost', 'root', '', 'ois_management');
 
                            if (!$con)
                              {
@@ -31,6 +34,13 @@ $con = mysqli_connect('localhost', 'root', '', 'ois');
     <script type="text/javascript" src="daterangepicker.js"></script>
   </head>
   <body>
+    <!-- Image and text -->
+    <nav class="navbar navbar-light bg-light mb-3">
+      <a class="navbar-brand" href="index.php">
+        <img src="images/oislogo.png" height="30" class="d-inline-block align-top" alt="">
+      </a>
+    </nav>
+
     <!-- date -->
     <div class="container">
       <div class="row">
@@ -61,8 +71,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois');
   <table class="table table-striped table-bordered">
     <thead>
       <tr>
-        <th scope="col" rowspan="2">Emp ID</th>
-        <th scope="col" rowspan="2">Employee name</th>
+        <th scope="col" rowspan="2">Date</th>
         <th scope="col" rowspan="2">Login</th>
         <th scope="col" colspan="2">Break</th>
         <th scope="col" colspan="2">Lunch</th>
@@ -81,8 +90,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois');
     </thead>
     <tbody>
       <tr>
-        <th scope="row">OIS00037</th>
-        <td>Ravi Kiran</td>
+        <th scope="row">04/15/2019</th>
         <td>11:30</td>
         <td>12:15</td>
         <td>12:30</td>
@@ -102,7 +110,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois');
       </div>
       <div class="col-lg-1"> 
         <div class="btn-group">
-          <a class="btn btn-primary" href="index.php" role="button">Back</a>
+          <a class="btn btn-primary" href="index.php?Employee_Id=<?php echo $Employee_Id;?>" role="button">Back</a>
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 <?php
 //include('functions.php');
-$Employee_Id1=$_GET['Employee_Id'];
+$Employee_Id=$_GET['Employee_Id'];
 /*echo $Employee_Name1;*/
 
 $con = mysqli_connect('localhost', 'root', '', 'ois_management');
@@ -37,7 +37,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
             $image = 'data:image/'.$imageFileType.';base64,'.$image_base64;
 
             // Insert record
-             $sql = "INSERT INTO attendance (Employee_Id, Employee_Name, Designation,image,Photo_path) VALUES ('$Employee_Id', '$Employee_Name', '$Designation','".$name."','upload/')";
+             $sql = "INSERT INTO employees (Employee_Id, Employee_Name, Designation,image,Photo_path) VALUES ('$Employee_Id', '$Employee_Name', '$Designation','".$name."','upload/')";
   mysqli_query($con, $sql); //store the submitted data into the database table: images
             //$query = "insert into attendance(name,image) values('".$name."','".$image."')";
            
@@ -89,7 +89,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
                 <!-- <a class="btn btn-success" href="#" role="button">Export</a> -->
               </div>
               <div class="btn-group">
-                <a class="btn btn-primary" href="index.php" role="button">Home</a>
+                <a class="btn btn-primary" href="index.php?$Employee_Id=$_GET['Employee_Id'];" role="button">Home</a>
               </div>
               <div class="btn-group">
                 <a class="btn btn-primary" href="../login.php" role="button">Logout</a>

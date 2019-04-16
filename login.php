@@ -43,7 +43,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
 
                               <?php
 
-                              $query= "SELECT * FROM attendance";
+                              $query= "SELECT * FROM employees";
                                $result = mysqli_query($con, $query);
                                echo "
                                <div class=\"input-group-prepend\">
