@@ -89,7 +89,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
                 <!-- <a class="btn btn-success" href="#" role="button">Export</a> -->
               </div>
               <div class="btn-group">
-                <a class="btn btn-primary" href="index.php?$Employee_Id=$_GET['Employee_Id'];" role="button">Home</a>
+                <a class="btn btn-primary" href="index.php?Employee_Id=<?php echo $Employee_Id ?>" role="button">Home</a>
               </div>
               <div class="btn-group">
                 <a class="btn btn-primary" href="../login.php" role="button">Logout</a>

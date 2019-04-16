@@ -49,6 +49,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
       $resultset = mysqli_query($con, $sql) or die("database error:". mysqli_error($con));
       while( $record = mysqli_fetch_assoc($resultset) ) {
         $image=$record['image'];
+        $Employee_Id1 =$record['Employee_Id'];
       ?>
       
         <div class="col-sm-3">
@@ -56,7 +57,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
             <img src="upload/<?php echo $image; ?>" class="card-img-top" alt="Emp Name">
             <div class="card-body">
               <h5 class="card-title"><?php echo $record['Employee_Name']; ?></h5>
-              <a href="#" class="btn btn-primary">Attendance list</a>
+              <a href="empatt.php?Employee_Id=<?php echo $Employee_Id1 ?>" class="btn btn-primary">Attendance list</a>
             </div>
           </div>
         </div>

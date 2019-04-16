@@ -2,9 +2,6 @@
   date_default_timezone_set('Asia/Kolkata');
 
   $db = mysqli_connect('localhost', 'root', '', 'ois_management');
-
-  //include('functions.php');
-  //$Employee_Name1=$_GET['Employee_Id'];
   $Employee_Id=e($_GET['Employee_Id']);
 
   /*echo $Employee_Id;*/
@@ -14,6 +11,7 @@
      {
      die('Could not connect: ' . mysqli_error());
      }
+
      /*echo "Connections are made successfully::";*/
      $qry ="SELECT * from user_logins where Employee_Id='$Employee_Id' LIMIT 1";
      $result = mysqli_query($con, $qry);
@@ -31,6 +29,24 @@
     $logged_in_users = mysqli_fetch_assoc($result1);
       $image=$logged_in_users['image'];
     }
+              /*echo "Connections are made successfully::";*/
+              $qry ="SELECT * from user_logins where Employee_Id='$Employee_Id' LIMIT 1";
+              $result = mysqli_query($con, $qry);
+              if (mysqli_num_rows($result) == 1) {
+                  $logged_in_user = mysqli_fetch_assoc($result);
+                   //$test=$logged_in_user['Employee_Name'];
+                   // echo $test;
+                   $Employee_Name=  $logged_in_user['Employee_Name'];
+                   $Designation=$logged_in_user['Designation'];               
+
+              }
+
+              $qry1 ="SELECT * from employees where Employee_Id='$Employee_Id' LIMIT 1";
+              $result1 = mysqli_query($con, $qry1);
+              if (mysqli_num_rows($result1) == 1) {
+                  $logged_in_users = mysqli_fetch_assoc($result1);
+                  $image=$logged_in_users['image'];
+              }
 ?>
 
 
@@ -177,12 +193,8 @@
     </thead>
     <tbody>
       <?php
-      //  $sql1 ="SELECT * from user_table where Employee_Name='$Employee_Id' LIMIT 1";
-      //$result1 = mysqli_query($con, $sql1);
 
         if (mysqli_num_rows($result) > 0){
-        //  while ($row = $result -> fetch_assoc()) {
-
             echo"<tr>
               <td>".$logged_in_user['Employee_Id']."</td>
               <td>".$logged_in_user['Employee_Name']."</td>
@@ -196,7 +208,7 @@
               <td>".$logged_in_user['Logout_Time']."</td>
               <td>07:00</td>
             </tr>";
-          //}
+          
         }
       ?>
 
