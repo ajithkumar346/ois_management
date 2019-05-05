@@ -8,8 +8,11 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
                              {
                              die('Could not connect: ' . mysqli_error());
                              }
+$sql ="SELECT * from user_table where Employee_Name='$Employee_Name1'";
+        $result = mysqli_query($con, $sql);
 
                        /*echo "Connections are made successfully::";*/
+                   
 ?>
 
 <!doctype html>
@@ -41,12 +44,15 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
         <div class="container">
           <div class="row">
             <!--Grid column-->
-            <div class="col-md-10 white-text text-center text-md-left mt-xl-3 mb-5">
+            <div class="col-md-9 white-text text-center text-md-left mt-xl-3 mb-5">
               <img src="images/oislogo.png" alt="Logo">
             </div>
-            <div class="col-md-2 mt-xl-3 mb-5">
+            <div class="col-md-3 mt-xl-3 mb-5">
               <div class="btn-group">
                 <!-- <a class="btn btn-success" href="#" role="button">Export</a> -->
+              </div>
+              <div class="btn-group">
+                <a class="btn btn-primary" href="addemp.php" role="button">Add Employee</a>
               </div>
               <div class="btn-group">
                 <a class="btn btn-primary" href="login.php" role="button">Logout</a>
@@ -60,7 +66,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
               <div class="col-md-8 txt-emp">
                 <!-- <h3>Employee Name</h3> -->
                 <h3><?php echo $Employee_Name1; ?></h3>
-                <p>Designation</p>
+                <p><?php echo $Designation; ?></p>
               </div>
             </div>
           </div>
@@ -123,11 +129,11 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
     </thead>
     <tbody>
       <?php
-        $sql ="SELECT * from attendance where Employee_Name='$Employee_Name1'";
+        $sql ="SELECT * from user_table where Employee_Name='$Employee_Name1'";
         $result = mysqli_query($con, $sql);
- echo "1234567";
+
         if ($result ->num_rows > 0){
-         
+          echo "1234567";
           while ($row = $result -> fetch_assoc()) {
             
             echo"<tr>

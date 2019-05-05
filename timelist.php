@@ -1,12 +1,34 @@
 <?php
-$con = mysqli_connect('localhost', 'root', '', 'ois');
+date_default_timezone_set('Asia/Kolkata');
 
-                           if (!$con)
-                             {
-                             die('Could not connect: ' . mysql_error());
-                             }
+$db = mysqli_connect('localhost', 'root', '', 'ois_management');
+$Employee_Id=e($_GET['Employee_Id']);
 
+		$con = mysqli_connect('localhost', 'root', '', 'ois_management');
+		    if (!$con)
+            {
+            die('Could not connect: ' . mysql_error());
+            }
+
+$qry1 ="SELECT * from employees where Employee_Id='$Employee_Id' LIMIT 1";
+ $result1 = mysqli_query($con, $qry1);
+  if (mysqli_num_rows($result1) == 1) {
+    $logged_in_users = mysqli_fetch_assoc($result1);
+      $image=$logged_in_users['image'];
+    }
+	
                        /*echo "Connections are made successfully::";*/
+					$qry ="SELECT * from user_logins where Employee_Id='$Employee_Id' LIMIT 1";
+              $result = mysqli_query($con, $qry);
+              if (mysqli_num_rows($result) == 1) {
+                  $logged_in_user = mysqli_fetch_assoc($result);
+                   //$test=$logged_in_user['Employee_Name'];
+                   // echo $test;
+                   $Employee_Name=  $logged_in_user['Employee_Name'];
+                   $Designation=$logged_in_user['Designation'];               
+
+              }
+				
 ?>
 
 <!doctype html>
@@ -61,8 +83,7 @@ $con = mysqli_connect('localhost', 'root', '', 'ois');
   <table class="table table-striped table-bordered">
     <thead>
       <tr>
-        <th scope="col" rowspan="2">Emp ID</th>
-        <th scope="col" rowspan="2">Employee name</th>
+        <th scope="col" rowspan="2">Emp ID</th>     
         <th scope="col" rowspan="2">Login</th>
         <th scope="col" colspan="2">Break</th>
         <th scope="col" colspan="2">Lunch</th>
@@ -80,9 +101,12 @@ $con = mysqli_connect('localhost', 'root', '', 'ois');
       </tr>
     </thead>
     <tbody>
+	<?php
+
+        if (mysqli_num_rows($result) > 0){
+        echo"
       <tr>
-        <th scope="row">OIS00037</th>
-        <td>Ravi Kiran</td>
+        <td>".$logged_in_user['Employee_Id']."</td>
         <td>11:30</td>
         <td>12:15</td>
         <td>12:30</td>
@@ -92,7 +116,9 @@ $con = mysqli_connect('localhost', 'root', '', 'ois');
         <td>04:35</td>
         <td>06:40</td>
         <td>07:00</td>
-      </tr>
+      </tr>";
+		}
+	?>
     </tbody>
   </table>
   <div class="container">
@@ -130,3 +156,9 @@ $con = mysqli_connect('localhost', 'root', '', 'ois');
     <script src="js/bootstrap.js"></script>
   </body>
 </html>
+<?php
+function e($val){
+  global $db;
+  return mysqli_real_escape_string($db, trim($val));
+}
+?>
