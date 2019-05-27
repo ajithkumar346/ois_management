@@ -258,15 +258,49 @@ global $date1;
       <div class="col-lg-3">
         <div class="btn-group">
 
-
           <a class="btn btn-primary" href="timelist.php?Employee_Id=<?php echo $Employee_Id;?>" role="button">check previous days</a>
 
+          <a class="btn btn-primary" href="timelist.php?Employee_Id=<?php echo $Employee_Id ?>" role="button">check previous days</a>
         </div>
       </div>
     </div>
   </div>
 
+    <?php include 'scripts.php' ?>
+<script type="text/javascript">
+$(function() {
+  var interval = setInterval(function() {
+    var momentNow = moment();
+    $('#date').html(momentNow.format('dddd').substring(0,3).toUpperCase() + ' - ' + momentNow.format('MMMM DD, YYYY'));  
+    $('#time').html(momentNow.format('hh:mm:ss A'));
+  }, 100);
 
+  $('#attendance').submit(function(e){
+    e.preventDefault();
+    var attendance = $(this).serialize();
+    $.ajax({
+      type: 'POST',
+      url: 'attendance.php',
+      data: attendance,
+      dataType: 'json',
+      success: function(response){
+        if(response.error){
+          $('.alert').hide();
+          $('.alert-danger').show();
+          $('.message').html(response.message);
+        }
+        else{
+          $('.alert').hide();
+          $('.alert-success').show();
+          $('.message').html(response.message);
+          $('#employee').val('');
+        }
+      }
+    });
+  });
+    
+});
+</script>
     <script>
       n =  new Date();
       y = n.getFullYear();
