@@ -31,7 +31,7 @@ header,
 }
 
 .navbar:not(.top-nav-collapse) {
-  background: transparent !important;
+  background: #ececec !important;
 }
 
 @media (max-width: 991px) {
@@ -98,7 +98,7 @@ h6 {
 }
 
 .btn-break{
-      color: #fff;
+    color: #fff;
     background-color: #6F4431;
     border-color: #6F4431;
 }
@@ -106,7 +106,7 @@ h6 {
 .btn-circle.btn-lg {
   width: 50px;
   height: 50px;
-  padding: 10px 16px;
+  padding: 8px 8px;
   font-size: 18px;
   line-height: 1.33;
   border-radius: 25px;
@@ -197,3 +197,14 @@ h6 {
     background-position: center;
 }
     
+/*
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+*/

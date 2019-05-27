@@ -1,8 +1,6 @@
 <?php
-//include('functions.php');
-$Employee_Name1=$_GET['Employee_Name'];
-/*echo $Employee_Name1;*/
-$con = mysqli_connect('localhost', 'root', '', 'ois_management');
+  date_default_timezone_set('Asia/Kolkata');
+
 
                            if (!$con)
                              {
@@ -13,7 +11,56 @@ $sql ="SELECT * from user_table where Employee_Name='$Employee_Name1'";
 
                        /*echo "Connections are made successfully::";*/
                    
+
+  $db = mysqli_connect('localhost', 'root', '', 'ois_management');
+  $Employee_Id=e($_GET['Employee_Id']);
+
+  /*echo $Employee_Id;*/
+  $con = mysqli_connect('localhost', 'root', '', 'ois_management');
+
+    if (!$con)
+     {
+     die('Could not connect: ' . mysqli_error());
+     }
+
+     /*echo "Connections are made successfully::";*/
+     $qry ="SELECT * from user_logins where Employee_Id='$Employee_Id' LIMIT 1";
+     $result = mysqli_query($con, $qry);
+     if (mysqli_num_rows($result) == 1) {
+       $logged_in_user = mysqli_fetch_assoc($result);
+       //$test=$logged_in_user['Employee_Name'];
+       // echo $test;
+       $Employee_Name=  $logged_in_user['Employee_Name'];
+       $Designation=$logged_in_user['Designation'];
+}
+
+ $qry1 ="SELECT * from employees where Employee_Id='$Employee_Id' LIMIT 1";
+ $result1 = mysqli_query($con, $qry1);
+  if (mysqli_num_rows($result1) == 1) {
+    $logged_in_users = mysqli_fetch_assoc($result1);
+      $image=$logged_in_users['image'];
+    }
+              /*echo "Connections are made successfully::";*/
+              $qry ="SELECT * from user_logins where Employee_Id='$Employee_Id' LIMIT 1";
+              $result = mysqli_query($con, $qry);
+              if (mysqli_num_rows($result) == 1) {
+                  $logged_in_user = mysqli_fetch_assoc($result);
+                   //$test=$logged_in_user['Employee_Name'];
+                   // echo $test;
+                   $Employee_Name=  $logged_in_user['Employee_Name'];
+                   $Designation=$logged_in_user['Designation'];               
+
+              }
+
+              $qry1 ="SELECT * from employees where Employee_Id='$Employee_Id' LIMIT 1";
+              $result1 = mysqli_query($con, $qry1);
+              if (mysqli_num_rows($result1) == 1) {
+                  $logged_in_users = mysqli_fetch_assoc($result1);
+                  $image=$logged_in_users['image'];
+              }
+
 ?>
+
 
 <!doctype html>
 <html lang="en">
@@ -44,6 +91,7 @@ $sql ="SELECT * from user_table where Employee_Name='$Employee_Name1'";
         <div class="container">
           <div class="row">
             <!--Grid column-->
+
             <div class="col-md-9 white-text text-center text-md-left mt-xl-3 mb-5">
               <img src="images/oislogo.png" alt="Logo">
             </div>
@@ -56,41 +104,67 @@ $sql ="SELECT * from user_table where Employee_Name='$Employee_Name1'";
               </div>
               <div class="btn-group">
                 <a class="btn btn-primary" href="login.php" role="button">Logout</a>
+
+            <div class="col-md-11 white-text text-center text-md-left mt-xl-3 mb-5">
+              <img src="images/oislogo.png" alt="Logo">
+            </div>
+            <div class="col-md-1 mt-xl-2 mb-5">
+              <!-- <div class="btn-group">
+             <a class="btn btn-success" href="login.php" role="button">Home</a>
+              </div> -->
+              <div class="btn-group">
+                <a class="btn btn-primary" href="functions.php?logout=logout;" role="button">Logout</a>
+
               </div>
             </div>
 
             <div class="row">
               <div class="col-md-4">
-                <img class="rounded-circle" src="images/user.jpg" alt="username">
+                <img class="rounded-circle" src="admin/upload/<?php echo $image; ?>" alt="username">
               </div>
               <div class="col-md-8 txt-emp">
                 <!-- <h3>Employee Name</h3> -->
+
                 <h3><?php echo $Employee_Name1; ?></h3>
                 <p><?php echo $Designation; ?></p>
+
+                <h3><?php echo $Employee_Name; ?></h3>
+                <p><?php echo $Designation;?></p>
+
               </div>
             </div>
           </div>
           <!-- date -->
+          <form method="POST" action="" >
           <div class="row">
-            <div class="col-lg-4"></div>
-            <div class="col-lg-2">
-              <!-- <div class="form-group">
-                    <label for="startDate">Start Date</label>
-                    <input type="text" class="form-control" id="startDate" value="07/01/2015">
-              </div> -->
-            </div>
-            <div class="col-lg-2">
-              <!-- <div class="form-group">
-                <label for="endDate">End Date</label>
-                <input type="text" class="form-control" id="endDate" value="07/15/2015">
-              </div> -->
-            </div>
-            <div class="col-lg-1">
-              <a class="btn btn-break btn-circle btn-lg rounded-circle" href="#" role="button"><i class="fas fa-mug-hot"></i></a>
-            </div>
-            <div class="col-lg-1">
-              <a class="btn btn-info btn-circle btn-lg rounded-circle" href="#" role="button"><i class="fas fa-utensils"></i></a>
-            </div>
+            <div class="col-lg-5"></div>
+
+                  <div class="col-lg-1">
+                    <div class="btn-group">
+                      <a class="btn btn-primary emplogin" id="emplogin" name="emplogin" href="timefunction.php?Employee_Id=<?php echo $Employee_Id ?>" role="button">Login</a>
+                      <!-- <button type="button" class="btn btn-primary" name="emplogin">Login</button> -->
+                      <!-- <input type="submit" class="btn btn-primary emplogin"id="emplogin" name="emplogin" value="Login"> -->
+                  </div>
+                </div>
+                  <div class="col-lg-1">
+                    <a class="btn btn-break btn-circle btn-lg rounded-circle tbreak" name="tbreak" href="#" role="button"><img src="images/tbreak.png" alt="tbreak"></a>
+                  </div>
+                  <div class="col-lg-1">
+                    <a class="btn btn-primary btn-circle btn-lg rounded-circle lunch" name="lunch" href="#" role="button"><img src="images/lunch.png"></a>
+                  </div>
+                  <div class="col-lg-1">
+                    <a class="btn btn-break btn-circle btn-lg rounded-circle cbreak" name="cbreak" href="#" role="button"><img src="images/cbreak.png"></a>
+                  </div>
+                  <div class="col-lg-1">
+                    <div class="btn-group">
+                      <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-primary emplogout" name="emplogout" data-toggle="modal" data-target="#exampleModal">
+                      Logout
+                      </button>
+                    </div>
+                  </div>
+              </form>
+
             <div class="col-lg-2">
               <div class="input-group mb-3">
                 <label>Current Date</label>
@@ -98,6 +172,28 @@ $sql ="SELECT * from user_table where Employee_Name='$Employee_Name1'";
               </div>
             </div>
           </div>
+          <!-- popup modal -->
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Are you sure</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure do you want to logout?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a role="button" href="index.php" class="btn btn-primary">Yes</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- //end popup modal -->
         </div>
       </div>
       <!-- Full Page Intro -->
@@ -135,24 +231,27 @@ $sql ="SELECT * from user_table where Employee_Name='$Employee_Name1'";
         if ($result ->num_rows > 0){
           echo "1234567";
           while ($row = $result -> fetch_assoc()) {
-            
+
+
+        if (mysqli_num_rows($result) > 0){
+
             echo"<tr>
-              <td>".$row['Employee_Id']."</td>
-              <td>".$row['Employee_Name']."</td>
-              <td>".$row['Login_Time']."</td>
+              <td>".$logged_in_user['Employee_Id']."</td>
+              <td>".$logged_in_user['Employee_Name']."</td>
+              <td>".$logged_in_user['Login_Time']."</td>
               <td>12:15</td>
               <td>12:30</td>
               <td>01:40</td>
               <td>02:15</td>
               <td>04:20</td>
               <td>04:35</td>
-              <td>".$row['Logout_Time']."</td>
+              <td>".$logged_in_user['Logout_Time']."</td>
               <td>07:00</td>
             </tr>";
-          }
+          
         }
       ?>
-      
+
     </tbody>
   </table>
   <div class="container">
@@ -162,13 +261,47 @@ $sql ="SELECT * from user_table where Employee_Name='$Employee_Name1'";
       </div>
       <div class="col-lg-3">
         <div class="btn-group">
-          <a class="btn btn-primary" href="timelist.php" role="button">check previous days</a>
+          <a class="btn btn-primary" href="timelist.php?Employee_Id=<?php echo $Employee_Id ?>" role="button">check previous days</a>
         </div>
       </div>
     </div>
   </div>
 
+    <?php include 'scripts.php' ?>
+<script type="text/javascript">
+$(function() {
+  var interval = setInterval(function() {
+    var momentNow = moment();
+    $('#date').html(momentNow.format('dddd').substring(0,3).toUpperCase() + ' - ' + momentNow.format('MMMM DD, YYYY'));  
+    $('#time').html(momentNow.format('hh:mm:ss A'));
+  }, 100);
 
+  $('#attendance').submit(function(e){
+    e.preventDefault();
+    var attendance = $(this).serialize();
+    $.ajax({
+      type: 'POST',
+      url: 'attendance.php',
+      data: attendance,
+      dataType: 'json',
+      success: function(response){
+        if(response.error){
+          $('.alert').hide();
+          $('.alert-danger').show();
+          $('.message').html(response.message);
+        }
+        else{
+          $('.alert').hide();
+          $('.alert-success').show();
+          $('.message').html(response.message);
+          $('#employee').val('');
+        }
+      }
+    });
+  });
+    
+});
+</script>
     <script>
       n =  new Date();
       y = n.getFullYear();
@@ -183,10 +316,17 @@ $sql ="SELECT * from user_table where Employee_Name='$Employee_Name1'";
 
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script type="text/javascript" src="js/main.js"></script>
+    <!-- <script type="text/javascript" src="js/main.js"></script> -->
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap.js"></script>
+
   </body>
 </html>
+<?php
+function e($val){
+  global $db;
+  return mysqli_real_escape_string($db, trim($val));
+}
+?>

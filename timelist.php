@@ -1,5 +1,12 @@
 <?php
+
 date_default_timezone_set('Asia/Kolkata');
+
+$Employee_Id=$_GET['Employee_Id'];
+
+
+$con = mysqli_connect('localhost', 'root', '', 'ois_management');
+
 
 $db = mysqli_connect('localhost', 'root', '', 'ois_management');
 $Employee_Id=e($_GET['Employee_Id']);
@@ -53,6 +60,13 @@ $qry1 ="SELECT * from employees where Employee_Id='$Employee_Id' LIMIT 1";
     <script type="text/javascript" src="daterangepicker.js"></script>
   </head>
   <body>
+    <!-- Image and text -->
+    <nav class="navbar navbar-light bg-light mb-3">
+      <a class="navbar-brand" href="index.php">
+        <img src="images/oislogo.png" height="30" class="d-inline-block align-top" alt="">
+      </a>
+    </nav>
+
     <!-- date -->
     <div class="container">
       <div class="row">
@@ -83,7 +97,9 @@ $qry1 ="SELECT * from employees where Employee_Id='$Employee_Id' LIMIT 1";
   <table class="table table-striped table-bordered">
     <thead>
       <tr>
+
         <th scope="col" rowspan="2">Emp ID</th>     
+        <th scope="col" rowspan="2">Date</th>
         <th scope="col" rowspan="2">Login</th>
         <th scope="col" colspan="2">Break</th>
         <th scope="col" colspan="2">Lunch</th>
@@ -106,7 +122,10 @@ $qry1 ="SELECT * from employees where Employee_Id='$Employee_Id' LIMIT 1";
         if (mysqli_num_rows($result) > 0){
         echo"
       <tr>
+
         <td>".$logged_in_user['Employee_Id']."</td>
+
+        <th scope="row">04/15/2019</th>
         <td>11:30</td>
         <td>12:15</td>
         <td>12:30</td>
@@ -128,7 +147,7 @@ $qry1 ="SELECT * from employees where Employee_Id='$Employee_Id' LIMIT 1";
       </div>
       <div class="col-lg-1"> 
         <div class="btn-group">
-          <a class="btn btn-primary" href="index.php" role="button">Back</a>
+          <a class="btn btn-primary" href="index.php?Employee_Id=<?php echo $Employee_Id;?>" role="button">Back</a>
         </div>
       </div>
     </div>
@@ -149,7 +168,7 @@ $qry1 ="SELECT * from employees where Employee_Id='$Employee_Id' LIMIT 1";
 
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script type="text/javascript" src="js/main.js"></script>
+    <!-- <script type="text/javascript" src="js/main.js"></script> -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js"></script>
