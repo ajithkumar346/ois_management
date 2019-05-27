@@ -23,15 +23,15 @@
        $Designation=$logged_in_user['Designation'];
 }
 
- $qry1 ="SELECT * from employees where Employee_Id='$Employee_Id' LIMIT 1";
- $result1 = mysqli_query($con, $qry1);
-  if (mysqli_num_rows($result1) == 1) {
-    $logged_in_users = mysqli_fetch_assoc($result1);
-      $image=$logged_in_users['image'];
-    }
-              /*echo "Connections are made successfully::";*/
-              $qry ="SELECT * from user_logins where Employee_Id='$Employee_Id' LIMIT 1";
-              $result = mysqli_query($con, $qry);
+       $qry1 ="SELECT * from employees where Employee_Id='$Employee_Id' LIMIT 1";
+       $result1 = mysqli_query($con, $qry1);
+        if (mysqli_num_rows($result1) == 1) {
+          $logged_in_users = mysqli_fetch_assoc($result1);
+            $image=$logged_in_users['image'];
+          }
+          /*echo "Connections are made successfully::";*/
+          $qry ="SELECT * from user_logins where Employee_Id='$Employee_Id' LIMIT 1";
+          $result = mysqli_query($con, $qry);
               if (mysqli_num_rows($result) == 1) {
                   $logged_in_user = mysqli_fetch_assoc($result);
                    //$test=$logged_in_user['Employee_Name'];
@@ -39,13 +39,6 @@
                    $Employee_Name=  $logged_in_user['Employee_Name'];
                    $Designation=$logged_in_user['Designation'];               
 
-              }
-
-              $qry1 ="SELECT * from employees where Employee_Id='$Employee_Id' LIMIT 1";
-              $result1 = mysqli_query($con, $qry1);
-              if (mysqli_num_rows($result1) == 1) {
-                  $logged_in_users = mysqli_fetch_assoc($result1);
-                  $image=$logged_in_users['image'];
               }
 ?>
 
@@ -103,17 +96,35 @@
             </div>
           </div>
           <!-- date -->
-          <form method="POST" action="" >
           <div class="row">
             <div class="col-lg-5"></div>
+                  <?php
+                    if(isset($_POST['click']))
+                    {
+                    $date_clicked = date('Y-m-d H:i:s');
+                    $sql = "INSERT INTO user_logins (Employee_Id, Employee_Name, Designation, Login_Time,
+out_time_b, in_time_b, out_time_l, in_time_l, out_time_t, in_time_t, Logout_Time, total_hrs, created_at, u pdated_at)";
 
+                    //echo "Time the button was clicked: " . $date_clicked . "<br>";
+                    }
+                  ?>
                   <div class="col-lg-1">
                     <div class="btn-group">
-                      <a class="btn btn-primary emplogin" id="emplogin" name="emplogin" href="timefunction.php?Employee_Id=<?php echo $Employee_Id ?>" role="button">Login</a>
+                      <form action="" method="POST">
+                        <button class="btn btn-primary" name="click">Login</button>
+                      </form>
+                      <!-- <a class="btn btn-primary emplogin" id="emplogin" name="emplogin" href="timefunction.php?Employee_Id=<?php $Employee_Id ?>" role="button">Login</a> -->
                       <!-- <button type="button" class="btn btn-primary" name="emplogin">Login</button> -->
                       <!-- <input type="submit" class="btn btn-primary emplogin"id="emplogin" name="emplogin" value="Login"> -->
+                    </div>
                   </div>
-                </div>
+                  <?php
+                    if(isset($_POST['tbreak']))
+                    {
+                    $date_clicked = date('H:i:s');;
+                    //echo "Time the button was clicked: " . $date_clicked . "<br>";
+                    }
+                  ?>
                   <div class="col-lg-1">
                     <a class="btn btn-break btn-circle btn-lg rounded-circle tbreak" name="tbreak" href="#" role="button"><img src="images/tbreak.png" alt="tbreak"></a>
                   </div>
@@ -123,15 +134,17 @@
                   <div class="col-lg-1">
                     <a class="btn btn-break btn-circle btn-lg rounded-circle cbreak" name="cbreak" href="#" role="button"><img src="images/cbreak.png"></a>
                   </div>
+                  
                   <div class="col-lg-1">
                     <div class="btn-group">
+                      <form action="" method="POST">
                       <!-- Button trigger modal -->
                       <button type="button" class="btn btn-primary emplogout" name="emplogout" data-toggle="modal" data-target="#exampleModal">
                       Logout
                       </button>
+                    </form>
                     </div>
                   </div>
-              </form>
 
             <div class="col-lg-2">
               <div class="input-group mb-3">
@@ -154,9 +167,17 @@
                   <div class="modal-body">
                     Are you sure do you want to logout?
                   </div>
+                  <?php
+                    if(isset($_POST['logout']))
+                    {
+                    $date_clicked = date('Y-m-d H:i:s');;
+                    //echo "Time the button was clicked: " . $date_clicked . "<br>";
+                    header("location: login.php");
+                    }
+                  ?>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <a role="button" href="index.php" class="btn btn-primary">Yes</a>
+                    <button class="btn btn-primary" type="button" name="logout">Yes</button>
                   </div>
                 </div>
               </div>
@@ -198,7 +219,7 @@
             echo"<tr>
               <td>".$logged_in_user['Employee_Id']."</td>
               <td>".$logged_in_user['Employee_Name']."</td>
-              <td>".$logged_in_user['Login_Time']."</td>
+              <td>".$date_clicked."</td>
               <td>12:15</td>
               <td>12:30</td>
               <td>01:40</td>
@@ -227,41 +248,6 @@
     </div>
   </div>
 
-    <?php include 'scripts.php' ?>
-<script type="text/javascript">
-$(function() {
-  var interval = setInterval(function() {
-    var momentNow = moment();
-    $('#date').html(momentNow.format('dddd').substring(0,3).toUpperCase() + ' - ' + momentNow.format('MMMM DD, YYYY'));  
-    $('#time').html(momentNow.format('hh:mm:ss A'));
-  }, 100);
-
-  $('#attendance').submit(function(e){
-    e.preventDefault();
-    var attendance = $(this).serialize();
-    $.ajax({
-      type: 'POST',
-      url: 'attendance.php',
-      data: attendance,
-      dataType: 'json',
-      success: function(response){
-        if(response.error){
-          $('.alert').hide();
-          $('.alert-danger').show();
-          $('.message').html(response.message);
-        }
-        else{
-          $('.alert').hide();
-          $('.alert-success').show();
-          $('.message').html(response.message);
-          $('#employee').val('');
-        }
-      }
-    });
-  });
-    
-});
-</script>
     <script>
       n =  new Date();
       y = n.getFullYear();
