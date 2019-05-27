@@ -6,12 +6,12 @@ date_default_timezone_set('Asia/Kolkata');
 
   // variable declaration
   $Employee_Name = "";
-  $Login_Time    = "";
+  $created_at    = "";
   $errors   = array();
 global $Login_Time;
   // call the login() function if register_btn is clicked
   if (isset($_GET['login_btn'])) {
-    global $Login_Time;
+    global $created_at;
 
     login();
   }
@@ -22,11 +22,8 @@ global $Login_Time;
  //   $query1 = "UPDATE user_table SET Logout_Time='$Logout_Time'  WHERE 1";
   //  $results1 = mysqli_query($db, $query1);
 
-    //$query1 = "UPDATE user_table SET Logout_Time='$Logout_Time'  WHERE Employee_Id=$Employee_Id";
+    //$query1 = "UPDATE user_logins SET Logout_Time='$Logout_Time'  WHERE Employee_Id=$Employee_Id";
     //$results1 = mysqli_query($db, $query1);
-
-    $query1 = "UPDATE user_logins SET Logout_Time='$Logout_Time'  WHERE Employee_Id=$Employee_Id";
-    $results1 = mysqli_query($db, $query1);
 
     unset($_SESSION['user']);
    header("location: login.php");
@@ -34,7 +31,7 @@ global $Login_Time;
 // LOGIN USER
   function login(){
     global $db, $errors;
-    $Login_Time= date("h:i:sa");
+    $created_at= date("Y-m-d h:i:s");
   //  echo $Login_Time;
     // grap form values
     $username = e($_GET['Employee_Name']);
@@ -62,17 +59,31 @@ global $Login_Time;
           $_SESSION['user'] = $logged_in_user;
           $_SESSION['success']  = "You are now logged in";
           $Employee_Id=$logged_in_user['Employee_Id'];
+          $Employee_Name=$logged_in_user['Employee_Name'];
+          $Designation=$logged_in_user['Designation'];
           if ($username=='Santosh') {
             // code...
             header('location: admin/index.php?Employee_Id='.$Employee_Id.'');
           }else {
             // code...
-            echo $Login_Time;
-          //  $query1 = "UPDATE user_table SET Login_Time='$Login_Time'  WHERE 1";
+            echo $created_at;
+            $query1 = "INSERT INTO user_logins (login_id,Employee_Id, Employee_Name, Designation,created_at)values('','$Employee_Id','$Employee_Name', '$Designation','$created_at')";
+            $results1 = mysqli_query($db, $query1);
+           // $query1 = "UPDATE user_logins SET created_at='$Login_time'  WHERE Employee_Name='$username'and ";
           //  $results1 = mysqli_query($db, $query1);
 
+          
+          
+          header('location: index.php?Employee_Name= '.$username.'');
          header('location: index.php?Employee_Id='.$Employee_Id.'');
         //  echo "<script>setTimeout(\"location.href = 'index.php?Employee_Id='.$Employee_Id.'';\",1000);</script>";
+
+              $test = array('Employee_Id' => $Employee_Id,'created_at' =>$created_at );
+              $test=http_build_query($test);
+         //header('location: index.php?Employee_Id='.$Employee_Id.',created_at='.$created_at.'');
+         header("location: index.php?test=".urlencode(serialize($test)));
+         // echo "<script>setTimeout(\"location.href = 'index.php?Employee_Id='.$Employee_Id.''& created_at='.$created_at.'';\",10);</script>";
+         //  echo "<script>setTimeout(\"location.href = 'index.php?Employee_Id= '.$Employee_Id.'';\",100);</script>";
           }
         //  header('location: index.php?Employee_Name= '.$username.'');
         //  echo "<script>setTimeout(\"location.href = 'index.php?Employee_Name= '.$username.'';\",1000);</script>";

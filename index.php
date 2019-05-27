@@ -1,10 +1,29 @@
 <?php
   date_default_timezone_set('Asia/Kolkata');
 
-  $db = mysqli_connect('localhost', 'root', '', 'ois_management');
-  $Employee_Id=e($_GET['Employee_Id']);
 
-  /*echo $Employee_Id;*/
+                           if (!$con)
+                             {
+                             die('Could not connect: ' . mysqli_error());
+                             }
+$sql ="SELECT * from user_table where Employee_Name='$Employee_Name1'";
+        $result = mysqli_query($con, $sql);
+
+                       /*echo "Connections are made successfully::";*/
+                   
+
+  $db = mysqli_connect('localhost', 'root', '', 'ois_management');
+ parse_str(unserialize($_GET['test']), $output);
+//$Values= unserialize(($_GET['test'])); 
+//echo "Firstname:" .$output['Employee_Id'];
+echo "created_at:" .$output['created_at'];
+$Employee_Id=$output['Employee_Id'];
+$date1=$output['created_at'];
+global $date1;  
+//echo $output['created_at'];
+  //$Employee_Id=e($_POST['Employee_Id']);
+ // $date1=e($_POST['created_at']);
+
   $con = mysqli_connect('localhost', 'root', '', 'ois_management');
 
     if (!$con)
@@ -32,16 +51,28 @@
           /*echo "Connections are made successfully::";*/
           $qry ="SELECT * from user_logins where Employee_Id='$Employee_Id' LIMIT 1";
           $result = mysqli_query($con, $qry);
+             
+              // echo "Connections are made successfully::";
+              $qry ="SELECT * from user_logins where Employee_Id='$Employee_Id'and created_at='$date1' LIMIT 1";
+              $result = mysqli_query($con, $qry);
               if (mysqli_num_rows($result) == 1) {
+
                   $logged_in_user = mysqli_fetch_assoc($result);
-                   //$test=$logged_in_user['Employee_Name'];
-                   // echo $test;
-                   $Employee_Name=  $logged_in_user['Employee_Name'];
-                   $Designation=$logged_in_user['Designation'];               
+                  $Employee_Name=  $logged_in_user['Employee_Name'];
+                  $Designation  =  $logged_in_user['Designation'];
+                  // echo $logged_in_user['Employee_Name']; 
+                  // echo  $logged_in_user['Designation'];      
 
               }
-?>
 
+              $qry1 ="SELECT * from employees where Employee_Id='$Employee_Id' LIMIT 1";
+              $result1 = mysqli_query($con, $qry1);
+              if (mysqli_num_rows($result1) == 1) {
+                  $logged_in_users = mysqli_fetch_assoc($result1);
+                  $image=$logged_in_users['image'];
+              }
+
+?>
 
 <!doctype html>
 <html lang="en">
@@ -72,6 +103,20 @@
         <div class="container">
           <div class="row">
             <!--Grid column-->
+
+            <div class="col-md-9 white-text text-center text-md-left mt-xl-3 mb-5">
+              <img src="images/oislogo.png" alt="Logo">
+            </div>
+            <div class="col-md-3 mt-xl-3 mb-5">
+              <div class="btn-group">
+                <!-- <a class="btn btn-success" href="#" role="button">Export</a> -->
+              </div>
+              <div class="btn-group">
+                <a class="btn btn-primary" href="addemp.php" role="button">Add Employee</a>
+              </div>
+              <div class="btn-group">
+                <a class="btn btn-primary" href="login.php" role="button">Logout</a>
+
             <div class="col-md-11 white-text text-center text-md-left mt-xl-3 mb-5">
               <img src="images/oislogo.png" alt="Logo">
             </div>
@@ -81,6 +126,7 @@
               </div> -->
               <div class="btn-group">
                 <a class="btn btn-primary" href="functions.php?logout=logout;" role="button">Logout</a>
+
               </div>
             </div>
 
@@ -90,8 +136,13 @@
               </div>
               <div class="col-md-8 txt-emp">
                 <!-- <h3>Employee Name</h3> -->
+
+                <h3><?php echo $Employee_Name1; ?></h3>
+                <p><?php echo $Designation; ?></p>
+
                 <h3><?php echo $Employee_Name; ?></h3>
                 <p><?php echo $Designation;?></p>
+
               </div>
             </div>
           </div>
@@ -117,6 +168,24 @@ out_time_b, in_time_b, out_time_l, in_time_l, out_time_t, in_time_t, Logout_Time
                       <!-- <button type="button" class="btn btn-primary" name="emplogin">Login</button> -->
                       <!-- <input type="submit" class="btn btn-primary emplogin"id="emplogin" name="emplogin" value="Login"> -->
                     </div>
+          <!-- <form method="POST" action="" > -->
+          <div class="row">
+            <div class="col-lg-5"></div>
+                                  <?php
+                                  if(isset($_POST['emplogin']))
+                                  {
+                                     $Login_Time= date("Y-m-d h:i:sa");
+                                     echo $Login_Time;
+                                    $query2 = "UPDATE user_logins SET Login_Time='$Login_Time'  WHERE Employee_Id='$Employee_Id' and created_at='$date1'  LIMIT 1";
+                                    $results2 = mysqli_query($db, $query2);
+                                  }
+                                  ?>
+                  <div class="col-lg-1">
+                    <div class="btn-group">
+                        <form method="POST" action="" >
+                      <!-- <button type="button" class="btn btn-primary" name="emplogin">Login</button> -->
+                      <input type="submit" class="btn btn-primary emplogin" id="emplogin" name="emplogin" value="Login">
+                        </form>
                   </div>
                   <?php
                     if(isset($_POST['tbreak']))
@@ -126,8 +195,31 @@ out_time_b, in_time_b, out_time_l, in_time_l, out_time_t, in_time_t, Logout_Time
                     }
                   ?>
                   <div class="col-lg-1">
-                    <a class="btn btn-break btn-circle btn-lg rounded-circle tbreak" name="tbreak" href="#" role="button"><img src="images/tbreak.png" alt="tbreak"></a>
+                    <?php
+                      if (isset($_POST['tbreak'])) {
+                        $b=$logged_in_user['break_status'];
+                       // echo $b;
+                        if($b=='out'){
+                          echo $b;
+                          $out_time_b= date("Y-m-d h:i:sa"); 
+                          $query3 = "UPDATE user_logins SET out_time_b='$out_time_b' break_status='in'  WHERE Employee_Id='$Employee_Id' and created_at='$date1'  LIMIT 1";
+                          $results3 = mysqli_query($db, $query3);}
+                      else{
+                          $in_time_b= date("Y-m-d h:i:sa");
+
+                          $query3 = "UPDATE user_logins SET in_time_b='$in_time_b'  break_status='out'  WHERE Employee_Id='$Employee_Id' and created_at='$date1'  LIMIT 1";
+                          $results3 = mysqli_query($db, $query3);
+                      }
+                      //header('location: index.php?Employee_Id='.$Employee_Id.'');
+                    }
+                    ?>
+                      <form method="POST" action="" >
+                    <!-- <a class="btn btn-break btn-circle btn-lg rounded-circle tbreak" name="tbreak" href="#"  role="button"><img src="images/tbreak.png" alt="tbreak"></a> -->
+                    <input type="submit" class="btn btn-primary tbreak" id="tbreak" name="tbreak" value="tbreak">
+                  </form>
                   </div>
+
+
                   <div class="col-lg-1">
                     <a class="btn btn-primary btn-circle btn-lg rounded-circle lunch" name="lunch" href="#" role="button"><img src="images/lunch.png"></a>
                   </div>
@@ -139,13 +231,14 @@ out_time_b, in_time_b, out_time_l, in_time_l, out_time_t, in_time_t, Logout_Time
                     <div class="btn-group">
                       <form action="" method="POST">
                       <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-primary emplogout" name="emplogout" data-toggle="modal" data-target="#exampleModal">
+                      <button type="button" class="btn btn-primary" name="emplogout1" data-toggle="modal" data-target="#exampleModal">
                       Logout
                       </button>
                     </form>
                     </div>
                   </div>
 
+              <!-- </form> -->
             <div class="col-lg-2">
               <div class="input-group mb-3">
                 <label>Current Date</label>
@@ -178,6 +271,20 @@ out_time_b, in_time_b, out_time_l, in_time_l, out_time_t, in_time_t, Logout_Time
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button class="btn btn-primary" type="button" name="logout">Yes</button>
+                    <?php
+                                  if(isset($_POST['emplogout']))
+                                  {
+                                     $Logout_Time= date("Y-m-d h:i:sa");
+                                     echo $Logout_Time;
+                                    $query2 = "UPDATE user_logins SET Logout_Time='$Logout_Time'  WHERE Employee_Id='$Employee_Id' and created_at='$date1'  LIMIT 1";
+                                    $results2 = mysqli_query($db, $query2);
+                                  }
+                                  ?>
+                    <form method="POST" action="" >
+
+                     <input type="submit" class="btn btn-primary emplogout" id="emplogout" name="emplogout" value="Yes">
+                    <!-- <a role="button" href="index.php" class="btn btn-primary">Yes</a> -->
+                     </form>
                   </div>
                 </div>
               </div>
@@ -214,8 +321,16 @@ out_time_b, in_time_b, out_time_l, in_time_l, out_time_t, in_time_t, Logout_Time
     </thead>
     <tbody>
       <?php
+        $sql ="SELECT * from user_table where Employee_Name='$Employee_Name1'";
+        $result = mysqli_query($con, $sql);
 
+        if ($result ->num_rows > 0){
+          echo "1234567";
+          while ($row = $result -> fetch_assoc()) {
+      $qry ="SELECT * from user_logins where Employee_Id='$Employee_Id'and created_at='$date1' LIMIT 1";
+              $result = mysqli_query($con, $qry);
         if (mysqli_num_rows($result) > 0){
+
             echo"<tr>
               <td>".$logged_in_user['Employee_Id']."</td>
               <td>".$logged_in_user['Employee_Name']."</td>
@@ -226,8 +341,15 @@ out_time_b, in_time_b, out_time_l, in_time_l, out_time_t, in_time_t, Logout_Time
               <td>02:15</td>
               <td>04:20</td>
               <td>04:35</td>
+              <td>".$logged_in_user['Login_Time']."</td>
+              <td>".$logged_in_user['out_time_b']."</td>
+              <td>".$logged_in_user['in_time_b']."</td>
+              <td>".$logged_in_user['out_time_l']."</td>
+              <td>".$logged_in_user['in_time_l']."</td>
+              <td>".$logged_in_user['out_time_t']."</td>
+              <td>".$logged_in_user['in_time_t']."</td>
               <td>".$logged_in_user['Logout_Time']."</td>
-              <td>07:00</td>
+              <td>".$logged_in_user['total_hrs']."</td>
             </tr>";
           
         }
@@ -242,6 +364,9 @@ out_time_b, in_time_b, out_time_l, in_time_l, out_time_t, in_time_t, Logout_Time
       </div>
       <div class="col-lg-3">
         <div class="btn-group">
+
+          <a class="btn btn-primary" href="timelist.php?Employee_Id=<?php echo $Employee_Id;?>" role="button">check previous days</a>
+
           <a class="btn btn-primary" href="timelist.php?Employee_Id=<?php echo $Employee_Id ?>" role="button">check previous days</a>
         </div>
       </div>

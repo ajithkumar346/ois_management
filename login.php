@@ -8,7 +8,6 @@ $con = mysqli_connect('localhost', 'root', '', 'ois_management');
            // echo "Connections are made successfully::";
 ?>
 
-<!doctype html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
